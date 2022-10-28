@@ -12,7 +12,8 @@
     ;; Routes
     [nas.htmx-demo.web.routes.api]
     
-    [nas.htmx-demo.web.routes.pages])
+    [nas.htmx-demo.web.routes.pages] 
+    [nas.htmx-demo.web.routes.ui])
   (:gen-class))
 
 ;; log uncaught exceptions in threads

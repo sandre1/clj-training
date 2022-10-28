@@ -44,4 +44,6 @@
  :router/core
  {:routes #ig/ref :router/routes}
  :reitit.routes/pages {:base-path "",
-                       :env #ig/ref :system/env}}
+                       :env #ig/ref :system/env}
+ :reitit.routes/ui {:base-path "",
+                    :env #ig/ref :system/env}}

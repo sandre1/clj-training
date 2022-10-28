@@ -20,7 +20,8 @@
  io.github.kit-clj/kit-core {:mvn/version "1.0.2"}
  io.github.kit-clj/kit-undertow {:mvn/version "1.0.2"}
  selmer/selmer {:mvn/version "1.12.50"}
- luminus/ring-ttl-session {:mvn/version "0.3.3"}}
+ luminus/ring-ttl-session {:mvn/version "0.3.3"}
+ hiccup/hiccup {:mvn/version "1.0.5"}}
  :aliases {:build {:deps {io.github.clojure/tools.build {:git/sha "e3e3532"
                                                          :git/tag "v0.8.0" :git/url "https://github.com/clojure/tools.build.git"}
                           slipset/deps-deploy {:mvn/version "0.2.0"}
@@ -37,7 +38,7 @@
                                 ring/ring-mock                  {:mvn/version "0.4.0"}
                                 io.github.kit-clj/kit-generator {:mvn/version "0.1.6"}
                                 org.clojure/tools.namespace     {:mvn/version "1.2.0"}
-                                }
+                                org.clojure/tools.trace {:mvn/version "0.7.11"}}
                   :extra-paths ["env/dev/clj" "env/dev/resources" "test/clj"]}
            :nrepl {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}}
                    :main-opts  ["-m" "nrepl.cmdline" "-i"]}
