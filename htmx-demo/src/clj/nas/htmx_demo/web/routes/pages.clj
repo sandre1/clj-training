@@ -18,7 +18,7 @@
 
 ;; Routes
 (defn page-routes [_opts]
-  [["/" {:get home}]])
+  [["/home" {:get home}]])
 
 (defn route-data [opts]
   (merge
