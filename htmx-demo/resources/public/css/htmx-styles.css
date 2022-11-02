@@ -1,0 +1,25 @@
+.btn {
+  padding: 1em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: #fff;
+  border: solid;
+  cursor: pointer;
+  border-radius: 8px;
+}
+a {
+  text-decoration: none;
+  color: #3465a4;
+}
+
+
+
+.htmx-settling tr.deactivate td {
+    background: lightcoral;
+  }
+  .htmx-settling tr.activate td {
+    background: darkseagreen;
+  }
+  tr td {
+    transition: all 1.2s;
+  }
