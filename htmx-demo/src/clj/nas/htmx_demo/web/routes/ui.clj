@@ -6,7 +6,8 @@
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
-   [reitit.ring.middleware.parameters :as parameters]))
+   [reitit.ring.middleware.parameters :as parameters]
+   [portal.api :as p]))
 
 (defn home [request]
   (page
@@ -63,13 +64,7 @@
      [:div [:label "Email"] email]
      [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]])))
 
-(def bulk-data [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "Active" :index "0"}{:name "Joe Smith" :email "joe@smith.org" :status "Active" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Active" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Active" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}])
-
-(defn in?
-      "true if coll contains elm"
-      [coll elm]
-      (let [v (into [] coll)]
-        (some #(= elm %) coll)))
+(def bulk-data [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "Inactive" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "Inactive" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Inactive" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Inactive" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}])
 
 (defn bulk-row [person]
   (let [name (:name person)
@@ -82,23 +77,23 @@
      [:td email]
      [:td status]]))
 
-(defn bulk-activate-row [person ids]
-  (let [name (:name person)
-        email (:email person)
-        status (:status person)
-        index (:index person)
-        active? (in? ids index)]
-    [:tr {:class (if active? "activate" "")}
-         [:td [:input {:type "checkbox" :name "ids" :value index}]]
-         [:td name]
-         [:td email]
-         [:td (if active? "Active" status)]]))
+;; (defn bulk-activate-row [person ids]
+;;   (let [name (:name person)
+;;         email (:email person)
+;;         status (:status person)
+;;         index (:index person)
+;;         active? (in? ids index)]
+;;     [:tr {:class (if active? "activate" "")}
+;;          [:td [:input {:type "checkbox" :name "ids" :value index}]]
+;;          [:td name]
+;;          [:td email]
+;;          [:td (if active? "Active" status)]]))
 
 (defn bulk-rows [persons]
   (map bulk-row persons))
 
-(defn bulk-activate-rows [persons ids]
-  (map #(bulk-activate-row % ids) persons))
+;; (defn bulk-activate-rows [persons ids]
+;;   (map #(bulk-activate-row % ids) persons))
 
 (defn bulk-update [request]
   (page
@@ -122,24 +117,24 @@
      [:a {:class "btn" :hx-put "/bulk-update/deactivate"} "Deactivate"]]]
    ))
 
+(defn testing [data l]
+  (map (fn [p] (let [i (:index p)
+                     n (:name p)
+                     e (:email p)
+                    
+                     activate? (some #(= i %) l)]
+                 [:tr {:class (if activate? "activate" "ssss")}
+                  [:td [:input {:type "checkbox" :name "ids" :value i}]]
+                  [:td n]
+                  [:td e]
+                  [:td (if activate? "Active" "Inactive")]])) data))
+
 (defn activate [request]
-  (let [ids (:form-params request)]
+  (let [req-params (:form-params request)
+        ids (vals req-params)
+        l (flatten (list ids))]
     (ui
-   [:head
-    [:meta {:charset "UTF-8"}]
-    [:title "Htmx + Kit"]
-    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" :defer true}]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]
-    [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
-   [:body
-    [:form {:id "checked-contacts"}
-     [:table
-      [:thead [:tr [:th]
-               [:th "Name"]
-               [:th "Email"]
-               [:th "Status"]]
-       [:tbody {:id "tbody"}
-        (bulk-activate-rows bulk-data ids)]]]]])))
+     (testing bulk-data l))))
 
 ;; (defn activate [request]
 ;;   [:div "bulk activate"])
@@ -179,8 +174,22 @@
 (comment 
   (let [ids ["0" "1"]]
     (contains? ids 1))
-  (in? '("1") "1")
   (into [] ["1" "2"])
   (bulk-rows bulk-data)
   (activate {:form-params "4"})
+  (testing bulk-data '("2" "3"))
+  (contains? (into [] ["0" "3"]) "")
+  (some #(= "1" %) '("0" "3"))
+  (Integer/parseInt "0")
+  (set "2")
+  (let [nums (map #(Integer/parseInt %) ["0" "3"])]
+    (type nums))
+  (contains? (into [] ["0" "1" "2"]) (Integer/parseInt "3"))
+  (type (doall (lazy-seq '(1 2 3))))
+  (flatten '(["0" "1"]))
+  (list "0")
+  (let [some-map {"ids" ["2" "3"]}
+        a (vals some-map)
+        b (flatten a)]
+    (testing bulk-data b))
   0)
