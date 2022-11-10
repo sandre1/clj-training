@@ -9,6 +9,8 @@
    [reitit.ring.middleware.parameters :as parameters]
    [portal.api :as p]))
 
+(def htmx-state (atom [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "Inactive" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "Inactive" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Inactive" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Inactive" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}]))
+
 (defn home [request]
   (page
    [:head
@@ -27,10 +29,6 @@
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
-
-(defn clicked [request]
-  (ui
-   [:div "Congratulations! You just clicked the button!"]))
 
 (defn edit [request]
   #_(let [b (slurp (:body request))]
@@ -64,36 +62,24 @@
      [:div [:label "Email"] email]
      [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]])))
 
-(def bulk-data [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "Inactive" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "Inactive" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Inactive" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Inactive" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}])
+(def persons [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "inactive" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "inactive" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "inactive" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "inactive" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "inactive" :index "4"}])
 
-(defn bulk-row [person]
+(def bulk-update-state (atom persons))
+
+(defn row-structure [person]
   (let [name (:name person)
         email (:email person)
         status (:status person)
-        index (:index person)]
-    [:tr {:class ""}
+        index (:index person)
+        active? (= status "active")]
+    [:tr {:class (if active? "activate" "deactivate")}
      [:td [:input {:type "checkbox" :name "ids" :value index}]]
      [:td name]
      [:td email]
-     [:td status]]))
+     [:td (if active? "Active" "Inactive")]]))
 
-;; (defn bulk-activate-row [person ids]
-;;   (let [name (:name person)
-;;         email (:email person)
-;;         status (:status person)
-;;         index (:index person)
-;;         active? (in? ids index)]
-;;     [:tr {:class (if active? "activate" "")}
-;;          [:td [:input {:type "checkbox" :name "ids" :value index}]]
-;;          [:td name]
-;;          [:td email]
-;;          [:td (if active? "Active" status)]]))
-
-(defn bulk-rows [persons]
-  (map bulk-row persons))
-
-;; (defn bulk-activate-rows [persons ids]
-;;   (map #(bulk-activate-row % ids) persons))
+(defn generate-rows [persons]
+  (map row-structure persons))
 
 (defn bulk-update [request]
   (page
@@ -111,43 +97,53 @@
                [:th "Email"]
                [:th "Status"]]
        [:tbody {:id "tbody"}
-        (bulk-rows bulk-data)]]]]
+        (generate-rows @bulk-update-state)]]]]
     [:div {:hx-include "#checked-contacts" :hx-target "#tbody"}
      [:a {:class "btn" :hx-put "/bulk-update/activate"} "Activate"]
      [:a {:class "btn" :hx-put "/bulk-update/deactivate"} "Deactivate"]]]
    ))
 
-(defn testing [data l]
-  (map (fn [p] (let [i (:index p)
-                     n (:name p)
-                     e (:email p)
-                    
-                     activate? (some #(= i %) l)]
-                 [:tr {:class (if activate? "activate" "ssss")}
-                  [:td [:input {:type "checkbox" :name "ids" :value i}]]
-                  [:td n]
-                  [:td e]
-                  [:td (if activate? "Active" "Inactive")]])) data))
+(defn create-activation-data [state request-params]
+    (let [request-ids (vals request-params)
+          ids (flatten (list request-ids))]
+      (swap! state 
+           (fn [persons]
+             (map (fn [person]
+                    (if (some #(= (:index person) %) ids)
+                      (assoc person :status "active")
+                      person))
+                  persons)))))
+
+(defn create-deactivation-data [state request-params]
+    (let [request-ids (vals request-params)
+          ids (flatten (list request-ids))]
+      (swap! state 
+           (fn [persons]
+             (map (fn [person]
+                    (if (some #(= (:index person) %) ids)
+                      (assoc person :status "inactive")
+                      person))
+                  persons)))))
 
 (defn activate [request]
   (let [req-params (:form-params request)
-        ids (vals req-params)
-        l (flatten (list ids))]
+        activation-data (create-activation-data bulk-update-state req-params)]
     (ui
-     (testing bulk-data l))))
+     (generate-rows activation-data))))
 
-;; (defn activate [request]
-;;   [:div "bulk activate"])
 (defn deactivate [request]
-  [:div "bulk deactivate"])
+  (let [req-params (:form-params request)
+        deactivation-data (create-deactivation-data bulk-update-state req-params)]
+    (ui
+     (generate-rows deactivation-data))))
 
 ;; Routes
 (defn ui-routes [_opts]
   [["/" home]
-   ["/clicked" {:post clicked}]
    ["/edit" {:get edit
              :post post-edit}]
    ["/bulk-update" {:get bulk-update}]
+   ["/update" {:get update}]
    ["/bulk-update/activate" {:put activate}]
    ["/bulk-update/deactivate" {:put deactivate}]])
 
@@ -175,10 +171,6 @@
   (let [ids ["0" "1"]]
     (contains? ids 1))
   (into [] ["1" "2"])
-  (bulk-rows bulk-data)
-  (activate {:form-params "4"})
-  (testing bulk-data '("2" "3"))
-  (contains? (into [] ["0" "3"]) "")
   (some #(= "1" %) '("0" "3"))
   (Integer/parseInt "0")
   (set "2")
@@ -188,8 +180,6 @@
   (type (doall (lazy-seq '(1 2 3))))
   (flatten '(["0" "1"]))
   (list "0")
-  (let [some-map {"ids" ["2" "3"]}
-        a (vals some-map)
-        b (flatten a)]
-    (testing bulk-data b))
+  (some #(= "1" %) '("0" "1"))
+  (prn @htmx-state)
   0)

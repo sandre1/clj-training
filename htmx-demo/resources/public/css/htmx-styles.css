@@ -6,13 +6,13 @@
   border: solid;
   cursor: pointer;
   border-radius: 8px;
+  margin:10px;
+  display: inline-block;
 }
 a {
   text-decoration: none;
   color: #3465a4;
 }
-
-
 
 .htmx-settling tr.deactivate td {
     background: lightcoral;
