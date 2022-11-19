@@ -4,6 +4,7 @@
    [nas.htmx-demo.web.routes.utils :as utils]
    [nas.htmx-demo.web.pages.layout :as layout]
    [nas.htmx-demo.htmx-examples.click-to-load :as click-to-load]
+   [nas.htmx-demo.htmx-examples.delete-row :as delete-row]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -27,7 +28,8 @@
      [:div [:label "Email"] "joe@dark.com"]
      [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]]
     [:div "Htmx examples"
-     [:a {:href "/click-to-load"} "Click-to-load"]]
+     [:a {:href "/click-to-load"} "Click-to-load"]
+     [:a {:href "/delete-row"} "Delete-row"]]
     ]))
 
 ;; (defn home [request]
@@ -149,7 +151,8 @@
    ["/bulk-update/activate" {:put activate}]
    ["/bulk-update/deactivate" {:put deactivate}]
    ["/click-to-load" {:get click-to-load/home}]
-   ["/click-to-load/load-more" {:get click-to-load/load-more}]])
+   ["/click-to-load/load-more" {:get click-to-load/load-more}]
+   ["/delete-row" {:get delete-row/home}]])
 
 (defn route-data [opts]
   (merge
