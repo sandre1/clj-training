@@ -1,0 +1,3 @@
+(ns nas.htmx-demo.htmx-examples.data)
+
+(def persons [{:name "Stan Andrei" :email "nas@gmail.com" :status "Active" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "Active" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Active" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Active" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}])

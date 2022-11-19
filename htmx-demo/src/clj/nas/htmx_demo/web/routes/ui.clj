@@ -152,7 +152,8 @@
    ["/bulk-update/deactivate" {:put deactivate}]
    ["/click-to-load" {:get click-to-load/home}]
    ["/click-to-load/load-more" {:get click-to-load/load-more}]
-   ["/delete-row" {:get delete-row/home}]])
+   ["/delete-row" {:get delete-row/home}]
+   ["/delete-row/delete-user" {:delete delete-row/delete-user}]])
 
 (defn route-data [opts]
   (merge
