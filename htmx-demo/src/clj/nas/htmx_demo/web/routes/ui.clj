@@ -4,6 +4,7 @@
    [nas.htmx-demo.web.routes.utils :as utils]
    [nas.htmx-demo.web.pages.layout :as layout]
    [nas.htmx-demo.htmx-examples.data :as local-db]
+   [nas.htmx-demo.htmx-examples.click-to-edit :as click-to-edit]
    [nas.htmx-demo.htmx-examples.click-to-load :as click-to-load]
    [nas.htmx-demo.htmx-examples.delete-row :as delete-row]
    [nas.htmx-demo.htmx-examples.edit-row :as edit-row]
@@ -22,51 +23,16 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:div {:hx-target "this" :hx-swap "outerHTML"}
-     [:div [:label "First Name"] "Joe"]
-     [:div [:label "Last Name"] "Dark"]
-     [:div [:label "Email"] "joe@dark.com"]
-     [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]]
     [:div "Htmx examples"
-     [:ul [:li [:a {:href "/click-to-load"} "Click-to-load"]]
+     [:ul
+      [:li [:a {:href "/click-to-edit"} "Click-to-edit"]]
+      [:li [:a {:href "/click-to-load"} "Click-to-load"]]
       [:li [:a {:href "/delete-row"} "Delete-row"]]
       [:li [:a {:href "/edit-row"} "Edit-row"]]]]
     ]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
-
-(defn edit [request]
-  #_(let [b (slurp (:body request))]
-    (tap> b))
-  ;; (tap> request)
-  (let [{:keys [form-params]} request]
-    (tap> form-params))
-  (ui
-   [:form {:hx-post "/edit"
-           :hx-target "this"
-           :hx-swap "outerHTML"}
-    [:div [:label "First Name"]
-     [:input {:type "text" :name "firstName" :value "Joe"}]]
-    [:div {:class "form-group"}
-     [:label "Last Name"]
-     [:input {:type "text" :name "lastName" :value "Dark"}]]
-    [:div {:class "form-group"}
-     [:label "Email Address"]
-     [:input {:type "email" :name "email" :value "joe@dark.com"}]]
-    [:button {:class "btn"} "Submit"]
-    [:button {:class "btn" :hx-get "/"} "Cancel"]]))
-
-(defn post-edit [request]
-  (let [{:keys [form-params]} request
-        {:strs [firstName lastName email]} form-params]
-    (tap> form-params)
-    (ui
-     [:div {:hx-target "this" :hx-swap "outerHTML"}
-     [:div [:label "First Name"] firstName]
-     [:div [:label "Last Name"] lastName]
-     [:div [:label "Email"] email]
-     [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]])))
 
 (def bulk-update-state (atom (atom local-db/persons)))
 
@@ -144,8 +110,9 @@
 ;; Routes
 (defn ui-routes [_opts]
   [["/" home]
-   ["/edit" {:get edit
-             :post post-edit}]
+   ["/click-to-edit" {:get click-to-edit/home}]
+   ["/click-to-edit/edit" {:get click-to-edit/edit
+                          :post click-to-edit/post-edit}]
    ["/bulk-update" {:get bulk-update}]
    ["/bulk-update/activate" {:put activate}]
    ["/bulk-update/deactivate" {:put deactivate}]
