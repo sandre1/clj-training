@@ -28,4 +28,13 @@ a {
     opacity: 0;
     transition: opacity 1s ease-out;
   }
+
+  .htmx-settling img {
+    opacity: 0;
+  }
+
+  img {
+   transition: opacity 3000ms ease-in;
+  }
+  
   

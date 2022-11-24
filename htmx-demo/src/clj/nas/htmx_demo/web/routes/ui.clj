@@ -3,12 +3,12 @@
    [nas.htmx-demo.web.middleware.exception :as exception]
    [nas.htmx-demo.web.routes.utils :as utils]
    [nas.htmx-demo.web.pages.layout :as layout]
-   [nas.htmx-demo.htmx-examples.data :as local-db]
    [nas.htmx-demo.htmx-examples.click-to-edit :as click-to-edit]
    [nas.htmx-demo.htmx-examples.bulk-update :as bulk-update]
    [nas.htmx-demo.htmx-examples.click-to-load :as click-to-load]
    [nas.htmx-demo.htmx-examples.delete-row :as delete-row]
    [nas.htmx-demo.htmx-examples.edit-row :as edit-row]
+   [nas.htmx-demo.htmx-examples.lazy-loading :as ll]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -30,7 +30,8 @@
       [:li [:a {:href "/bulk-update"} "Bulk-update"]]
       [:li [:a {:href "/click-to-load"} "Click-to-load"]]
       [:li [:a {:href "/delete-row"} "Delete-row"]]
-      [:li [:a {:href "/edit-row"} "Edit-row"]]]]
+      [:li [:a {:href "/edit-row"} "Edit-row"]]
+      [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]]]
     ]))
 
 ;; (defn home [request]
@@ -53,7 +54,9 @@
    ["/edit-row" {:get edit-row/home}]
    ["/edit-row/:id" {:get edit-row/cancel-edit
                      :put edit-row/save}]
-   ["/edit-row/:id/edit" {:get edit-row/edit}]])
+   ["/edit-row/:id/edit" {:get edit-row/edit}]
+   ["/lazy-loading" {:get ll/home}]
+   ["/lazy-loading/graph" {:get ll/graph}]])
 
 (defn route-data [opts]
   (merge
