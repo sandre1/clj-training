@@ -28,9 +28,9 @@
      [:div [:label "Email"] "joe@dark.com"]
      [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]]
     [:div "Htmx examples"
-     [:div [:a {:href "/click-to-load"} "Click-to-load"]]
-     [:div [:a {:href "/delete-row"} "Delete-row"]]
-     [:div [:a {:href "/edit-row"} "Edit-row"]]]
+     [:ul [:li [:a {:href "/click-to-load"} "Click-to-load"]]
+      [:li [:a {:href "/delete-row"} "Delete-row"]]
+      [:li [:a {:href "/edit-row"} "Edit-row"]]]]
     ]))
 
 ;; (defn home [request]
