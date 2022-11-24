@@ -3,6 +3,7 @@
    [nas.htmx-demo.web.middleware.exception :as exception]
    [nas.htmx-demo.web.routes.utils :as utils]
    [nas.htmx-demo.web.pages.layout :as layout]
+   [nas.htmx-demo.htmx-examples.data :as local-db]
    [nas.htmx-demo.htmx-examples.click-to-load :as click-to-load]
    [nas.htmx-demo.htmx-examples.delete-row :as delete-row]
    [nas.htmx-demo.htmx-examples.edit-row :as edit-row]
@@ -11,8 +12,6 @@
    [reitit.ring.middleware.muuntaja :as muuntaja]
    [reitit.ring.middleware.parameters :as parameters]
    [portal.api :as p]))
-
-(def htmx-state (atom [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "Inactive" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "Inactive" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Inactive" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Inactive" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}]))
 
 (defn home [request]
   (page
@@ -69,9 +68,7 @@
      [:div [:label "Email"] email]
      [:button {:hx-get "/edit" :class "btn btn-primary"} "Click to edit"]])))
 
-(def persons [{:name "Stan Andrei" :email "stan.andrei@gmail.com" :status "inactive" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "inactive" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "inactive" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "inactive" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "inactive" :index "4"}])
-
-(def bulk-update-state (atom persons))
+(def bulk-update-state (atom (atom local-db/persons)))
 
 (defn row-structure [person]
   (let [name (:name person)
@@ -195,5 +192,4 @@
   (flatten '(["0" "1"]))
   (list "0")
   (some #(= "1" %) '("0" "1"))
-  (prn @htmx-state)
   0)
