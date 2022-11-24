@@ -157,7 +157,8 @@
    ["/delete-row" {:get delete-row/home}]
    ["/delete-row/delete-user" {:delete delete-row/delete-user}]
    ["/edit-row" {:get edit-row/home}]
-   ["/edit-row/:id" {:get edit-row/cancel-edit}]
+   ["/edit-row/:id" {:get edit-row/cancel-edit
+                     :put edit-row/save}]
    ["/edit-row/:id/edit" {:get edit-row/edit}]])
 
 (defn route-data [opts]

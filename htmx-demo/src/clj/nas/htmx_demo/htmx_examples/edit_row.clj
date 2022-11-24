@@ -46,7 +46,8 @@
       [:button {:class "btn btn-danger"
                 :hx-get (str "/edit-row/" id)} "Cancel"]
       [:button {:class "btn btn-danger"
-                :hx-put (str "/edit-row/" id "/edit")} "Save"]]])))
+                :hx-put (str "/edit-row/" id)
+                :hx-include "closest tr"} "Save"]]])))
 
 (defn cancel-edit [request]
   (ui (let [params (:path-params request)
@@ -55,6 +56,19 @@
         user (nth @users num-idx)]
     (row user))))
 
+(defn save [request]
+  (ui (let [path-par (:path-params request)
+            params (:params request)
+            name (:name params)
+            email (:email params)
+            id (:id path-par)
+            num-idx (Integer/parseInt id)]
+        (do (swap! users assoc-in [num-idx :name] name)
+            (swap! users assoc-in [num-idx :email] email)
+            (row (first (filter #(= (:index %) id) @users)))))))
+
 (comment 
   (filter #(= (Integer/parseInt (:index %)) 0) @users)
+  (deref users)
+  
   0)
