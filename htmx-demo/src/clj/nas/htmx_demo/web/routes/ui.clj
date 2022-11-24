@@ -9,6 +9,7 @@
    [nas.htmx-demo.htmx-examples.delete-row :as delete-row]
    [nas.htmx-demo.htmx-examples.edit-row :as edit-row]
    [nas.htmx-demo.htmx-examples.lazy-loading :as ll]
+   [nas.htmx-demo.htmx-examples.inline-validation :as ivalidation]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -31,7 +32,8 @@
       [:li [:a {:href "/click-to-load"} "Click-to-load"]]
       [:li [:a {:href "/delete-row"} "Delete-row"]]
       [:li [:a {:href "/edit-row"} "Edit-row"]]
-      [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]]]
+      [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]
+      [:li [:a {:href "/inline-validation"} "Inline-validation"]]]]
     ]))
 
 ;; (defn home [request]
@@ -56,7 +58,8 @@
                      :put edit-row/save}]
    ["/edit-row/:id/edit" {:get edit-row/edit}]
    ["/lazy-loading" {:get ll/home}]
-   ["/lazy-loading/graph" {:get ll/graph}]])
+   ["/lazy-loading/graph" {:get ll/graph}]
+   ["/inline-validation" {:get ivalidation/home}]])
 
 (defn route-data [opts]
   (merge
