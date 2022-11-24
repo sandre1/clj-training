@@ -59,7 +59,8 @@
    ["/edit-row/:id/edit" {:get edit-row/edit}]
    ["/lazy-loading" {:get ll/home}]
    ["/lazy-loading/graph" {:get ll/graph}]
-   ["/inline-validation" {:get ivalidation/home}]])
+   ["/inline-validation" {:get ivalidation/home}]
+   ["/inline-validation/contact/email" {:post ivalidation/email?}]])
 
 (defn route-data [opts]
   (merge
