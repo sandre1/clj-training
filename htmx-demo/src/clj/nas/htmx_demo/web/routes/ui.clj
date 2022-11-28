@@ -10,6 +10,7 @@
    [nas.htmx-demo.htmx-examples.edit-row :as edit-row]
    [nas.htmx-demo.htmx-examples.lazy-loading :as ll]
    [nas.htmx-demo.htmx-examples.inline-validation :as ivalidation]
+   [nas.htmx-demo.htmx-examples.infinite-scroll :as iscroll]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -33,7 +34,8 @@
       [:li [:a {:href "/delete-row"} "Delete-row"]]
       [:li [:a {:href "/edit-row"} "Edit-row"]]
       [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]
-      [:li [:a {:href "/inline-validation"} "Inline-validation"]]]]
+      [:li [:a {:href "/inline-validation"} "Inline-validation"]]
+      [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]]]
     ]))
 
 ;; (defn home [request]
@@ -60,7 +62,10 @@
    ["/lazy-loading" {:get ll/home}]
    ["/lazy-loading/graph" {:get ll/graph}]
    ["/inline-validation" {:get ivalidation/home}]
-   ["/inline-validation/contact/email" {:post ivalidation/email?}]])
+   ["/inline-validation/contact/email" {:post ivalidation/email?}]
+   ["/infinite-scroll" {:get iscroll/home}]
+   ["/infinite-scroll/contacts/" {:get iscroll/contacts}]])
+
 
 (defn route-data [opts]
   (merge
