@@ -11,6 +11,7 @@
    [nas.htmx-demo.htmx-examples.lazy-loading :as ll]
    [nas.htmx-demo.htmx-examples.inline-validation :as ivalidation]
    [nas.htmx-demo.htmx-examples.infinite-scroll :as iscroll]
+   [nas.htmx-demo.htmx-examples.active-search :as asearch]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -35,7 +36,8 @@
       [:li [:a {:href "/edit-row"} "Edit-row"]]
       [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]
       [:li [:a {:href "/inline-validation"} "Inline-validation"]]
-      [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]]]
+      [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
+      [:li [:a {:href "/active-search"} "Active-search"]]]]
     ]))
 
 ;; (defn home [request]
@@ -64,7 +66,9 @@
    ["/inline-validation" {:get ivalidation/home}]
    ["/inline-validation/contact/email" {:post ivalidation/email?}]
    ["/infinite-scroll" {:get iscroll/home}]
-   ["/infinite-scroll/contacts/" {:get iscroll/contacts}]])
+   ["/infinite-scroll/contacts/" {:get iscroll/contacts}]
+   ["/active-search" {:get asearch/home}]
+   ["/active-search/search" {:post asearch/search}]])
 
 
 (defn route-data [opts]
