@@ -29,7 +29,7 @@
               [:th "Email"]]]
      [:tbody {:id "search-results"}]]]))
 
-(defn search [request]
+(defn search [request] ;;TODO @andrei: de adaugat functionalitate de search + lista de persoane (local-db)
   (ui
    [:tr
     [:td "nas"]
