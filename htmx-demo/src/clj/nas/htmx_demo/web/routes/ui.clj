@@ -12,6 +12,7 @@
    [nas.htmx-demo.htmx-examples.inline-validation :as ivalidation]
    [nas.htmx-demo.htmx-examples.infinite-scroll :as iscroll]
    [nas.htmx-demo.htmx-examples.active-search :as asearch]
+   [nas.htmx-demo.htmx-examples.progress-bar :as prog-bar]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -37,8 +38,8 @@
       [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]
       [:li [:a {:href "/inline-validation"} "Inline-validation"]]
       [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
-      [:li [:a {:href "/active-search"} "Active-search"]]]]
-    ]))
+      [:li [:a {:href "/active-search"} "Active-search"]]
+      [:li [:a {:href "/progress-bar"} "Progress-bar"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -49,7 +50,7 @@
   [["/" home]
    ["/click-to-edit" {:get click-to-edit/home}]
    ["/click-to-edit/edit" {:get click-to-edit/edit
-                          :post click-to-edit/post-edit}]
+                           :post click-to-edit/post-edit}]
    ["/bulk-update" {:get bulk-update/home}]
    ["/bulk-update/activate" {:put bulk-update/activate}]
    ["/bulk-update/deactivate" {:put bulk-update/deactivate}]
@@ -68,13 +69,16 @@
    ["/infinite-scroll" {:get iscroll/home}]
    ["/infinite-scroll/contacts/" {:get iscroll/contacts}]
    ["/active-search" {:get asearch/home}]
-   ["/active-search/search" {:post asearch/search}]])
+   ["/active-search/search" {:post asearch/search}]
+   ["/progress-bar" {:get prog-bar/home}]
+   ["/progress-bar/start" {:post prog-bar/start}]
+   ["/progress-bar/job" {:get prog-bar/job}]])
 
 
 (defn route-data [opts]
   (merge
    opts
-   {:middleware 
+   {:middleware
     [;; Default middleware for ui
      ;; query-params & form-params
      parameters/parameters-middleware
@@ -91,7 +95,7 @@
       :as   opts}]
   [base-path (route-data opts) (ui-routes opts)])
 
-(comment 
+(comment
   (let [ids ["0" "1"]]
     (contains? ids 1))
   (into [] ["1" "2"])
