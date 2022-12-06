@@ -48,14 +48,20 @@
               [:th "Email"]]]
      [:tbody {:id "search-results"}]]]))
 
+(defn contains-string? [person search-str]
+  (let [low-fname (str/lower-case (:firstName person))
+        low-lname (str/lower-case (:lastName person))]
+    (or (str/includes? low-fname search-str)
+        (str/includes? low-lname search-str)
+        (str/includes? (:email person) search-str))))
+
 (defn search [request]
   (ui
    (let [params (:params request)
          p (:search params)
+         low-p (str/lower-case p)
          users (persons-list persons)
-         results (filter (fn [person] (or (str/includes? (:firstName person) p)
-                                          (str/includes? (:lastName person) p)
-                                          (str/includes? (:email person) p))) users)]
+         results (filter #(contains-string? % low-p) users)]
      (map make-row results))))
 
 
@@ -65,12 +71,13 @@
 (comment
   (str/includes? "abvc ss " "m")
   
-  (let [p "elvera"
+  (let [p "jam"
         users (persons-list persons)
         results (filter (fn [person] (or (str/includes? (:firstName person) p)
                                          (str/includes? (:lastName person) p)
                                          (str/includes? (:email person) p))) users)]
      results)
+  (str/includes? "Jamal" "J")
   
   0
   )
