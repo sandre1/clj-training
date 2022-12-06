@@ -1,6 +1,25 @@
 (ns nas.htmx-demo.htmx-examples.active-search
   (:require [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
-            [nas.htmx-demo.htmx-examples.data :as local-db]))
+            [nas.htmx-demo.htmx-examples.data :as local-db]
+            [clojure.string :as str]))
+
+(def persons (take 100 local-db/csv-persons))
+
+(defn parse-person [person]
+  (let [fname (:first_name person)
+        lname (:last_name person)]
+    {:firstName fname
+     :lastName lname
+     :email (:email person)}))
+
+(defn persons-list [data]
+  (map parse-person data))
+
+(defn make-row [p]
+  [:tr 
+   [:td (:firstName p)]
+   [:td (:lastName p)]
+   [:td (:email p)]])
 
 (defn home [request]
   (page 
@@ -29,13 +48,29 @@
               [:th "Email"]]]
      [:tbody {:id "search-results"}]]]))
 
-(defn search [request] ;;TODO @andrei: de adaugat functionalitate de search + lista de persoane (local-db)
+(defn search [request]
   (ui
-   [:tr
-    [:td "nas"]
-    [:td "andrei"]
-    [:td "nas@office.com"]]))
+   (let [params (:params request)
+         p (:search params)
+         users (persons-list persons)
+         results (filter (fn [person] (or (str/includes? (:firstName person) p)
+                                          (str/includes? (:lastName person) p)
+                                          (str/includes? (:email person) p))) users)]
+     (map make-row results))))
 
-(comment 
- 
- 0)
+
+
+
+
+(comment
+  (str/includes? "abvc ss " "m")
+  
+  (let [p "elvera"
+        users (persons-list persons)
+        results (filter (fn [person] (or (str/includes? (:firstName person) p)
+                                         (str/includes? (:lastName person) p)
+                                         (str/includes? (:email person) p))) users)]
+     results)
+  
+  0
+  )

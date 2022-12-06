@@ -1,4 +1,20 @@
-(ns nas.htmx-demo.htmx-examples.data)
+(ns nas.htmx-demo.htmx-examples.data
+  (:require [clojure.data.csv :as csv]
+            [clojure.java.io :as io]))
+
+(defn csv-reader [file]
+  (with-open [reader (clojure.java.io/reader file)]
+  (doall
+    (csv/read-csv reader))))
+
+(defn csv-data->maps [csv-data]
+  (map zipmap
+       (->> (first csv-data) ;; First row is the header
+            (map keyword) ;; Drop if you want string keys instead
+            repeat)
+	  (rest csv-data)))
+
+(def csv-persons (csv-data->maps (csv-reader "us_data.csv")))
 
 (def persons [{:name "Stan Andrei" :email "nas@gmail.com" :status "Active" :index "0"} {:name "Joe Smith" :email "joe@smith.org" :status "Active" :index "1"} {:name "Angie MacDowell" :email "	angie@macdowell.org" :status "Active" :index "2"} {:name "Fuqua Tarkenton" :email "fuqua@tarkenton.org" :status "Active" :index "3"} {:name "Kim Yee" :email "	kim@yee.org" :status "Inactive" :index "4"}])
 
