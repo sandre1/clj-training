@@ -14,6 +14,7 @@
    [nas.htmx-demo.htmx-examples.active-search :as asearch]
    [nas.htmx-demo.htmx-examples.progress-bar :as prog-bar]
    [nas.htmx-demo.htmx-examples.cascading-selects :as cselects]
+   [nas.htmx-demo.htmx-examples.animations :as animations]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -41,7 +42,8 @@
       [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
       [:li [:a {:href "/active-search"} "Active-search"]]
       [:li [:a {:href "/progress-bar"} "Progress-bar"]]
-      [:li [:a {:href "/cascading-selects"} "Cascading selects"]]]]]))
+      [:li [:a {:href "/cascading-selects"} "Cascading selects"]]\
+      [:li [:a {:href "/animations"} "Animations"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -76,7 +78,10 @@
    ["/progress-bar/start" {:post prog-bar/start}]
    ["/progress-bar/job" {:get prog-bar/job}]
    ["/cascading-selects" {:get cselects/home}]
-   ["/cascading-selects/models" {:get cselects/models}]])
+   ["/cascading-selects/models" {:get cselects/models}]
+   ["/animations" {:get animations/home}]
+   ["/animations/colors" {:get animations/colors}]
+   ["/animations/fade-out-demo" {:delete animations/fade-out-demo}]])
 
 
 (defn route-data [opts]

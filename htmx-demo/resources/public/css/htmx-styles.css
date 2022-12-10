@@ -87,3 +87,11 @@ img {
   -o-transition: width 600ms ease;
   transition: width 600ms ease;
 }
+
+.smooth {
+  transition: all 1s ease-in;
+}
+.fade-me-out.htmx-swapping {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
