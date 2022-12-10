@@ -13,6 +13,7 @@
    [nas.htmx-demo.htmx-examples.infinite-scroll :as iscroll]
    [nas.htmx-demo.htmx-examples.active-search :as asearch]
    [nas.htmx-demo.htmx-examples.progress-bar :as prog-bar]
+   [nas.htmx-demo.htmx-examples.cascading-selects :as cselects]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -39,7 +40,8 @@
       [:li [:a {:href "/inline-validation"} "Inline-validation"]]
       [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
       [:li [:a {:href "/active-search"} "Active-search"]]
-      [:li [:a {:href "/progress-bar"} "Progress-bar"]]]]]))
+      [:li [:a {:href "/progress-bar"} "Progress-bar"]]
+      [:li [:a {:href "/cascading-selects"} "Cascading selects"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -72,7 +74,9 @@
    ["/active-search/search" {:post asearch/search}]
    ["/progress-bar" {:get prog-bar/home}]
    ["/progress-bar/start" {:post prog-bar/start}]
-   ["/progress-bar/job" {:get prog-bar/job}]])
+   ["/progress-bar/job" {:get prog-bar/job}]
+   ["/cascading-selects" {:get cselects/home}]
+   ["/cascading-selects/models" {:get cselects/models}]])
 
 
 (defn route-data [opts]
