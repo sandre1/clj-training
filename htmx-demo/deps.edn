@@ -4,24 +4,24 @@
  :deps    {org.clojure/clojure {:mvn/version "1.11.1"}
 
            ;; Routing
- metosin/reitit {:mvn/version "0.5.18"}
+           metosin/reitit {:mvn/version "0.5.18"}
 
            ;; Ring
- metosin/ring-http-response {:mvn/version "0.9.3"}
- ring/ring-core {:mvn/version "1.9.5"}
- ring/ring-defaults {:mvn/version "0.3.3"}
+           metosin/ring-http-response {:mvn/version "0.9.3"}
+           ring/ring-core {:mvn/version "1.9.5"}
+           ring/ring-defaults {:mvn/version "0.3.3"}
 
            ;; Data coercion
- luminus-transit/luminus-transit {:mvn/version "0.1.5"
-                                  :exclusions [com.cognitect/transit-clj]}
- metosin/muuntaja {:mvn/version "0.6.8"}
+           luminus-transit/luminus-transit {:mvn/version "0.1.5"
+                                            :exclusions [com.cognitect/transit-clj]}
+           metosin/muuntaja {:mvn/version "0.6.8"}
 
            ;; kit Libs
- io.github.kit-clj/kit-core {:mvn/version "1.0.2"}
- io.github.kit-clj/kit-undertow {:mvn/version "1.0.2"}
- selmer/selmer {:mvn/version "1.12.50"}
- luminus/ring-ttl-session {:mvn/version "0.3.3"}
- hiccup/hiccup {:mvn/version "1.0.5"}}
+           io.github.kit-clj/kit-core {:mvn/version "1.0.2"}
+           io.github.kit-clj/kit-undertow {:mvn/version "1.0.2"}
+           selmer/selmer {:mvn/version "1.12.50"}
+           luminus/ring-ttl-session {:mvn/version "0.3.3"}
+           hiccup/hiccup {:mvn/version "1.0.5"}}
  :aliases {:build {:deps {io.github.clojure/tools.build {:git/sha "e3e3532"
                                                          :git/tag "v0.8.0" :git/url "https://github.com/clojure/tools.build.git"}
                           slipset/deps-deploy {:mvn/version "0.2.0"}
@@ -39,8 +39,8 @@
                                 io.github.kit-clj/kit-generator {:mvn/version "0.1.6"}
                                 org.clojure/tools.namespace     {:mvn/version "1.2.0"}
                                 org.clojure/tools.trace {:mvn/version "0.7.11"}
-                                djblue/portal {:mvn/version "0.33.0"}
-                                nano-id {:mvn/version "1.0.0"}
+                                djblue/portal {:mvn/version "0.35.0"}
+                                nano-id/nano-id {:mvn/version "1.0.0"}
                                 org.clojure/data.csv {:mvn/version "1.0.1"}}
                   :extra-paths ["env/dev/clj" "env/dev/resources" "test/clj"]}
            :nrepl {:extra-deps {nrepl/nrepl {:mvn/version "0.9.0"}}
