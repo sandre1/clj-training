@@ -18,6 +18,7 @@
    [nas.htmx-demo.htmx-examples.file-upload :as fu]
    [nas.htmx-demo.htmx-examples.dialogs :as dialogs]
    [nas.htmx-demo.htmx-examples.dialogs-bootstrap :as dialogb]
+   [nas.htmx-demo.htmx-examples.custom-modal :as cmodal]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -49,7 +50,8 @@
       [:li [:a {:href "/animations"} "Animations"]]
       [:li [:a {:href "/file-upload"} "File Upload"]]
       [:li [:a {:href "/dialogs"} "Dialogs - Browser"]]
-      [:li [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]]]]))
+      [:li [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]
+      [:li [:a {:href "/custom-modal"} "Custom Modal Dialog"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -95,7 +97,9 @@
    ["/dialogs" {:get dialogs/home}]
    ["/dialogs/submit" {:post dialogs/submit}]
    ["/dialogs-bootstrap" {:get dialogb/home}]
-   ["/dialogs-bootstrap/modal" {:get dialogb/modal}]])
+   ["/dialogs-bootstrap/modal" {:get dialogb/modal}]
+   ["/custom-modal" {:get cmodal/home}]
+["/custom-modal/modal" {:get cmodal/modal}]])
 
 
 (defn route-data [opts]

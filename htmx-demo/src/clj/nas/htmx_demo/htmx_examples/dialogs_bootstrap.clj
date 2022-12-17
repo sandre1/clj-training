@@ -9,8 +9,7 @@
     [:title "Htmx + Kit"]
     [:link {:href "https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" :rel "stylesheet" :type "text/css"}]
     [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" :defer true}]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.7" :defer true}]]
+    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]]
    [:body
     [:div
      [:button {:hx-get "dialogs-bootstrap/modal"
