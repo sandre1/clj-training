@@ -15,6 +15,9 @@
    [nas.htmx-demo.htmx-examples.progress-bar :as prog-bar]
    [nas.htmx-demo.htmx-examples.cascading-selects :as cselects]
    [nas.htmx-demo.htmx-examples.animations :as animations]
+   [nas.htmx-demo.htmx-examples.file-upload :as fu]
+   [nas.htmx-demo.htmx-examples.dialogs :as dialogs]
+   [nas.htmx-demo.htmx-examples.dialogs-bootstrap :as dialogb]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -43,7 +46,10 @@
       [:li [:a {:href "/active-search"} "Active-search"]]
       [:li [:a {:href "/progress-bar"} "Progress-bar"]]
       [:li [:a {:href "/cascading-selects"} "Cascading selects"]]\
-      [:li [:a {:href "/animations"} "Animations"]]]]]))
+      [:li [:a {:href "/animations"} "Animations"]]
+      [:li [:a {:href "/file-upload"} "File Upload"]]
+      [:li [:a {:href "/dialogs"} "Dialogs - Browser"]]
+      [:li [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -81,7 +87,15 @@
    ["/cascading-selects/models" {:get cselects/models}]
    ["/animations" {:get animations/home}]
    ["/animations/colors" {:get animations/colors}]
-   ["/animations/fade-out-demo" {:delete animations/fade-out-demo}]])
+   ["/animations/fade-out-demo" {:delete animations/fade-out-demo}]
+   ["/animations/fade-in-demo" {:post animations/fade-in-demo}]
+   ["/animations/name" {:post animations/name}]
+   ["/file-upload" {:get fu/home}]
+   ["/file-upload/upload" {:post fu/upload}]
+   ["/dialogs" {:get dialogs/home}]
+   ["/dialogs/submit" {:post dialogs/submit}]
+   ["/dialogs-bootstrap" {:get dialogb/home}]
+   ["/dialogs-bootstrap/modal" {:get dialogb/modal}]])
 
 
 (defn route-data [opts]

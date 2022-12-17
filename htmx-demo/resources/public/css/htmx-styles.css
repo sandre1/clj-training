@@ -95,3 +95,23 @@ img {
   opacity: 0;
   transition: opacity 1s ease-out;
 }
+
+#fade-me-in.htmx-added {
+  opacity: 0;
+}
+#fade-me-in {
+  opacity: 1;
+  transition: opacity 1s ease-out;
+}
+form.htmx-request {
+  opacity: .5;
+  transition: opacity 300ms linear;
+}
+
+.demo.faded {
+  opacity:.3;
+}
+.demo {
+  opacity:1;
+  transition: opacity ease-in 900ms;
+}
