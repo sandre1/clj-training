@@ -21,6 +21,7 @@
    [nas.htmx-demo.htmx-examples.custom-modal :as cmodal]
    [nas.htmx-demo.htmx-examples.tabs :as tabs]
    [nas.htmx-demo.hyper-tabs :as hypertabs]
+   [nas.htmx-demo.keyboard-shortcut :as ks]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -48,14 +49,15 @@
       [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
       [:li [:a {:href "/active-search"} "Active-search"]]
       [:li [:a {:href "/progress-bar"} "Progress-bar"]]
-      [:li [:a {:href "/cascading-selects"} "Cascading selects"]]\
+      [:li [:a {:href "/cascading-selects"} "Cascading selects"]] \
       [:li [:a {:href "/animations"} "Animations"]]
       [:li [:a {:href "/file-upload"} "File Upload"]]
       [:li [:a {:href "/dialogs"} "Dialogs - Browser"]]
       [:li [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]
       [:li [:a {:href "/custom-modal"} "Custom Modal Dialog"]]
       [:li [:a {:href "/tabs"} "Tabs"]]
-      [:li [:a {:href "/hyper-tabs"} "Tabs - hyperscript"]]]]]))
+      [:li [:a {:href "/hyper-tabs"} "Tabs - hyperscript"]]
+      [:li [:a {:href "/keyboard-shortcut"} "Keyboard Shortcut"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -111,7 +113,9 @@
    ["/hyper-tabs" {:get hypertabs/home}]
    ["/hyper-tabs/tab1" {:get hypertabs/tab1}]
    ["/hyper-tabs/tab2" {:get hypertabs/tab2}]
-   ["/hyper-tabs/tab3" {:get hypertabs/tab3}]])
+   ["/hyper-tabs/tab3" {:get hypertabs/tab3}]
+   ["/keyboard-shortcut" {:get ks/home}]
+   ["/keyboard-shortcut/doit" {:post ks/doit}]])
 
 
 (defn route-data [opts]
