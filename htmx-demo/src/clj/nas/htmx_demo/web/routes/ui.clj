@@ -19,6 +19,8 @@
    [nas.htmx-demo.htmx-examples.dialogs :as dialogs]
    [nas.htmx-demo.htmx-examples.dialogs-bootstrap :as dialogb]
    [nas.htmx-demo.htmx-examples.custom-modal :as cmodal]
+   [nas.htmx-demo.htmx-examples.tabs :as tabs]
+   [nas.htmx-demo.hyper-tabs :as hypertabs]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
@@ -51,7 +53,9 @@
       [:li [:a {:href "/file-upload"} "File Upload"]]
       [:li [:a {:href "/dialogs"} "Dialogs - Browser"]]
       [:li [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]
-      [:li [:a {:href "/custom-modal"} "Custom Modal Dialog"]]]]]))
+      [:li [:a {:href "/custom-modal"} "Custom Modal Dialog"]]
+      [:li [:a {:href "/tabs"} "Tabs"]]
+      [:li [:a {:href "/hyper-tabs"} "Tabs - hyperscript"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -99,7 +103,15 @@
    ["/dialogs-bootstrap" {:get dialogb/home}]
    ["/dialogs-bootstrap/modal" {:get dialogb/modal}]
    ["/custom-modal" {:get cmodal/home}]
-["/custom-modal/modal" {:get cmodal/modal}]])
+   ["/custom-modal/modal" {:get cmodal/modal}]
+   ["/tabs" {:get tabs/home}]
+   ["/tabs/tab1" {:get tabs/tab1}]
+   ["/tabs/tab2" {:get tabs/tab2}]
+   ["/tabs/tab3" {:get tabs/tab3}]
+   ["/hyper-tabs" {:get hypertabs/home}]
+   ["/hyper-tabs/tab1" {:get hypertabs/tab1}]
+   ["/hyper-tabs/tab2" {:get hypertabs/tab2}]
+   ["/hyper-tabs/tab3" {:get hypertabs/tab3}]])
 
 
 (defn route-data [opts]
