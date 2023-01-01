@@ -15,11 +15,15 @@
    [clojure.tools.trace :as trace]
    [portal.api :as p]))
 
-;; (def p (p/open)) ; Open a new inspector
 
-;; or with an extension installed, do:
-;; (def p (p/open {:launcher :vs-code}))  ; jvm / node only
-;; (add-tap #'p/submit) ; Add portal as a tap> target
+(comment
+  (def p (p/open)) ; Open a new inspector  
+  ;; or with an extension installed, do:
+  (def p (p/open {:launcher :vs-code}))  ; jvm / node only
+
+  (add-tap #'p/submit) ; Add portal as a tap> target
+
+  )
 
 ;; uncomment to enable hot loading for deps
 (watch-deps/start! {:aliases [:dev :test]})

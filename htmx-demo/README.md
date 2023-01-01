@@ -35,3 +35,28 @@ Note that this alias runs nREPL during development. To run nREPL in production (
 Run `clj -M:dev:nrepl` or `make repl`.
 
 Note that, just like with [CIDER](#cider), this alias runs nREPL during development. To run nREPL in production (typically when the system starts), use the kit-nrepl library through the +nrepl profile as described in [the documentation](https://kit-clj.github.io/docs/profiles.html#profiles).
+
+
+
+### Docker
+
+
+```shell
+
+
+docker run --privileged --rm tonistiigi/binfmt --install all
+# First time only / if it does not exist
+docker buildx create --name ci-builder --use
+
+docker buildx use ci-builder
+
+export DOCKER_BUILDKIT=1
+
+docker buildx build --pull --push --platform=linux/amd64,linux/arm64 -t docker.palantir.buildieugen/test-repo:latest .
+
+#arm64 only
+docker buildx build --pull --push --platform=linux/arm64 -t docker.io/ieugen/test-repo:latest .
+
+docker push andreistan3110/htmx-clojure-integration:latest
+
+```

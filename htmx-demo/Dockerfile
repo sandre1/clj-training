@@ -1,12 +1,15 @@
-# syntax = docker/dockerfile:1.2
-FROM clojure:openjdk-17 AS build
+FROM clojure:temurin-11-tools-deps-bullseye AS build
 
 WORKDIR /
 COPY . /
 
-RUN clj -Sforce -T:build all
+RUN which java; which bash;
 
-FROM azul/zulu-openjdk-alpine:17
+RUN apt-get update && apt-get install -y git && apt-get clean && clj -Sforce -T:build all
+
+ARG PORT=3000
+
+FROM clojure:temurin-17-bullseye
 
 COPY --from=build /target/htmx-demo-standalone.jar /htmx-demo/htmx-demo-standalone.jar
 
