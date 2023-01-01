@@ -20,9 +20,12 @@
    [nas.htmx-demo.htmx-examples.dialogs-bootstrap :as dialogb]
    [nas.htmx-demo.htmx-examples.custom-modal :as cmodal]
    [nas.htmx-demo.htmx-examples.tabs :as tabs]
-   [nas.htmx-demo.hyper-tabs :as hypertabs]
-   [nas.htmx-demo.keyboard-shortcut :as ks]
+   [nas.htmx-demo.htmx-examples.hyper-tabs :as hypertabs]
+   [nas.htmx-demo.htmx-examples.keyboard-shortcut :as ks]
+   [nas.htmx-demo.htmx-examples.sortable :as sortable]
    [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]
+   [nas.htmx-demo.htmx-examples.updating-content :as uc]
+   [nas.htmx-demo.htmx-examples.confirm :as confirm]
    [integrant.core :as ig]
    [reitit.ring.middleware.muuntaja :as muuntaja]
    [reitit.ring.middleware.parameters :as parameters]
@@ -57,7 +60,10 @@
       [:li [:a {:href "/custom-modal"} "Custom Modal Dialog"]]
       [:li [:a {:href "/tabs"} "Tabs"]]
       [:li [:a {:href "/hyper-tabs"} "Tabs - hyperscript"]]
-      [:li [:a {:href "/keyboard-shortcut"} "Keyboard Shortcut"]]]]]))
+      [:li [:a {:href "/keyboard-shortcut"} "Keyboard Shortcut"]]
+      [:li [:a {:href "/sortable"} "Sortable"]]
+      [:li [:a {:href "/updating-content"} "Updating content"]]
+      [:li [:a {:href "/confirmation-dialog"} "Confirmation dialog"]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))
@@ -115,7 +121,12 @@
    ["/hyper-tabs/tab2" {:get hypertabs/tab2}]
    ["/hyper-tabs/tab3" {:get hypertabs/tab3}]
    ["/keyboard-shortcut" {:get ks/home}]
-   ["/keyboard-shortcut/doit" {:post ks/doit}]])
+   ["/keyboard-shortcut/doit" {:post ks/doit}]
+   ["/sortable" {:get sortable/home}]
+   ["/sortable/items" {:post sortable/items}]
+   ["/updating-content" {:get uc/home}]
+   ["/confirmation-dialog" {:get confirm/home}]
+   ["/confirmation-dialog/confirmed" {:get confirm/confirmed}]])
 
 
 (defn route-data [opts]

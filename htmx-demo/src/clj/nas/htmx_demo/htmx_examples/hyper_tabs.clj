@@ -1,4 +1,4 @@
-(ns nas.htmx-demo.hyper-tabs
+(ns nas.htmx-demo.htmx-examples.hyper-tabs
   (:require [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]))
 
 (defn home [_request]

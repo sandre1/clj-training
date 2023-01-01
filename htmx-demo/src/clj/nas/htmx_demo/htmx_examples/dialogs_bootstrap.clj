@@ -15,7 +15,7 @@
      [:button {:hx-get "dialogs-bootstrap/modal"
                :class "btn btn-primary"
                :hx-trigger "click"
-               :_ "on htmx:afterOnLoad wait 10ms then add .show to #modal then add .show to #modal-backdrop"         
+               :_ "on htmx:afterOnLoad wait 3000ms then add .show to #modal then add .show to #modal-backdrop"         
                :hx-target "#modals-here"}
       "Open Modal"]
      [:div {:id "modals-here"}]]]))

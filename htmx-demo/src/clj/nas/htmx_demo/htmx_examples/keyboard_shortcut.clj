@@ -1,4 +1,4 @@
-(ns nas.htmx-demo.keyboard-shortcut
+(ns nas.htmx-demo.htmx-examples.keyboard-shortcut
   (:require [nas.htmx-demo.web.htmx :refer [ui page] :as htmx]))
 
 (defn home [_request]
