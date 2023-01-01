@@ -52,11 +52,9 @@ docker buildx use ci-builder
 
 export DOCKER_BUILDKIT=1
 
-docker buildx build --pull --push --platform=linux/amd64,linux/arm64 -t docker.palantir.buildieugen/test-repo:latest .
+docker buildx build --push --platform=linux/amd64,linux/arm64 -t andreistan3110/htmx-clojure-integration:latest .
 
 #arm64 only
-docker buildx build --pull --push --platform=linux/arm64 -t docker.io/ieugen/test-repo:latest .
-
-docker push andreistan3110/htmx-clojure-integration:latest
+docker buildx build --pull --push --platform=linux/arm64 -t andreistan3110/htmx-clojure-integration:latest .
 
 ```
