@@ -36,8 +36,8 @@
    [:head
     [:meta {:charset "UTF-8"}]
     [:title "Htmx + Kit"]
-    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" :defer true}]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]
+    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"  }]
+    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"  }]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
     [:div "Htmx examples"
@@ -125,6 +125,8 @@
    ["/sortable" {:get sortable/home}]
    ["/sortable/items" {:post sortable/items}]
    ["/updating-content" {:get uc/home}]
+   ["/updating-content/contacts" {:post uc/contacts}]
+   ["/updating-content/contacts-sol2" {:post uc/contacts-sol2}]
    ["/confirmation-dialog" {:get confirm/home}]
    ["/confirmation-dialog/confirmed" {:get confirm/confirmed}]])
 

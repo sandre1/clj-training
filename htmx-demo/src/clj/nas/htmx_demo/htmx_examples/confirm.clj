@@ -6,17 +6,16 @@
    [:head
     [:meta {:charset "UTF-8"}]
     [:title "Htmx + Kit"]
-    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" :defer true}]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]
+    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"}]
+    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" }]
     #_[:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:script {:src "https://cdn.jsdelivr.net/npm/sweetalert2@11" :defer true}]
-    [:div {:_ "on click call alert('You clicked me!')"} "click me!"]
+    [:script {:src "https://cdn.jsdelivr.net/npm/sweetalert2@11"}]
     [:button {:hx-trigger "confirmed"
               :hx-get "confirmation-dialog/confirmed"
               :_ "on click
                            call Swal.fire({title: 'Confirm', text:'Do you want to continue?'})
-                           if result.isConfirmed trigger confirmed"} "click meee"]]))
+                           if result.isConfirmed trigger confirmed"} "click me"]]))
 
 (defn confirmed
   [request]

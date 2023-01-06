@@ -15,15 +15,13 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     #_[:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    ;;TODO @Andrei - nu apeleaza post/items
     [:form {:class "sortable"
             :hx-post "sortable/items"
             :hx-trigger "end"}
      [:div {:class "htmx-indicator"} "Updating..."]
      (make-items (vec (range 1 6)))]
-    [:script {:src "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.js" :defer true}]
-    [:script {:src "/js/scripts.js"}]
-    ]))
+    [:script {:src "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.js"  }]
+    [:script {:src "/js/scripts.js"}]]))
 
 (defn items [request]
   (ui 
@@ -32,7 +30,7 @@
      (list 
       [:div {:class "htmx-indicator"} "Updating..."]
       (make-items items)
-      [:script {:src "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.js" :defer true}]
+      [:script {:src "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.js"  }]
        [:script {:src "/js/scripts.js"}]))))
 
 

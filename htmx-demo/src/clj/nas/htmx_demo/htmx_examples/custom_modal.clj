@@ -8,8 +8,8 @@
     [:meta {:charset "UTF-8"}]
     [:title "Htmx + Kit"]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]
-    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js" :defer true}]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" :defer true}]]
+    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"}]
+    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]]
    [:body
     [:div
      [:button {:hx-get "custom-modal/modal"
