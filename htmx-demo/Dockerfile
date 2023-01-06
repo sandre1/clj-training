@@ -1,11 +1,11 @@
 FROM clojure:temurin-11-tools-deps-bullseye AS build
 
+RUN apt-get update && apt-get install -y git && apt-get clean
+
 WORKDIR /
 COPY . /
 
-RUN which java; which bash;
-
-RUN apt-get update && apt-get install -y git && apt-get clean && clj -Sforce -T:build all
+RUN clj -Sforce -T:build all
 
 ARG PORT=3000
 
