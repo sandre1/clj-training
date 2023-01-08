@@ -10,16 +10,19 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:div {:id "tabs"
-           :hx-target "#tab-contents"
-           :_ "on htmx:afterOnLoad take .selected for event.target"}
-     [:a {:hx-get "hyper-tabs/tab1"
-          :class "selected"} "Tab 1"]
-     [:a {:hx-get "hyper-tabs/tab2"} "Tab 2"]
-     [:a {:hx-get "hyper-tabs/tab3"} "Tab 3"]]
-    [:div {:id "tab-contents"
-           :hx-get "/tab1"
-           :hx-trigger "load"}]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div {:id "tabs"
+             :hx-target "#tab-contents"
+             :_ "on htmx:afterOnLoad take .selected for event.target"}
+       [:a {:hx-get "hyper-tabs/tab1"
+            :class "selected"} "Tab 1"]
+       [:a {:hx-get "hyper-tabs/tab2"} "Tab 2"]
+       [:a {:hx-get "hyper-tabs/tab3"} "Tab 3"]]
+      [:div {:id "tab-contents"
+             :hx-get "/tab1"
+             :hx-trigger "load"}]]]
+    ]))
 
 (defn tab1 [_request]
   (ui

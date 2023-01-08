@@ -19,45 +19,47 @@
               [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"  }]
               [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"  }]
               [:script {:src "https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.js"  }]
-              #_[:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
+              [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
              [:body
-              [:div {:id "table-and-form"}
-               [:h2 "Contacts"]
-               [:table {:class "table"}
-                [:thead
-                 [:tr
-                  [:th "Name"]
-                  [:th "Email"]
-                  [:th]]]
-                [:tbody {:id "contacts-table"}]]
-               [:h2 "Add a contact"]
-               [:form {:hx-post "updating-content/contacts"
-                       :hx-target "#table-and-form"}
-                [:label "Name"]
-                [:input {:name "name"
-                         :type "text"}]
-                [:label "Email"]
-                [:input {:name "email"
-                         :type "email"}]
-                [:button "Submit"]]]
-              [:div {:id "solution 2"}
-               [:h2 "Contacts solution 2"]
-               [:table {:class "table"}
-                [:thead
-                 [:tr
-                  [:th "Name"]
-                  [:th "Email"]
-                  [:th]]]
-                [:tbody {:id "contacts-table2"}]]
-               [:h2 "Add a contact"]
-               [:form {:hx-post "updating-content/contacts-sol2"}
-                [:label "Name"
-                 [:input {:name "name"
-                          :type "text"}]]
-                [:label "Email"
-                 [:input {:name "email"
-                          :type "email"}]]
-                [:button "Submit"]]]]))))
+              [:div {:class "container"}
+               [:div {:class "example-wrapper"}
+                [:div {:id "table-and-form"}
+                 [:h2 "Contacts"]
+                 [:table {:class "table"}
+                  [:thead
+                   [:tr
+                    [:th "Name"]
+                    [:th "Email"]
+                    [:th]]]
+                  [:tbody {:id "contacts-table"}]]
+                 [:h2 "Add a contact"]
+                 [:form {:hx-post "updating-content/contacts"
+                         :hx-target "#table-and-form"}
+                  [:label "Name"]
+                  [:input {:name "name"
+                           :type "text"}]
+                  [:label "Email"]
+                  [:input {:name "email"
+                           :type "email"}]
+                  [:button "Submit"]]]
+                [:div {:id "solution 2"}
+                 [:h2 "Contacts solution 2"]
+                 [:table {:class "table"}
+                  [:thead
+                   [:tr
+                    [:th "Name"]
+                    [:th "Email"]
+                    [:th]]]
+                  [:tbody {:id "contacts-table2"}]]
+                 [:h2 "Add a contact"]
+                 [:form {:hx-post "updating-content/contacts-sol2"}
+                  [:label "Name"
+                   [:input {:name "name"
+                            :type "text"}]]
+                  [:label "Email"
+                   [:input {:name "email"
+                            :type "email"}]]
+                  [:button "Submit"]]]]]]))))
 
 (defn add-contact [c]
   (let []

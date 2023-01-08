@@ -11,14 +11,16 @@
     [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"}]
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]]
    [:body
-    [:div
-     [:button {:hx-get "dialogs-bootstrap/modal"
-               :class "btn btn-primary"
-               :hx-trigger "click"
-               :_ "on htmx:afterOnLoad wait 3000ms then add .show to #modal then add .show to #modal-backdrop"         
-               :hx-target "#modals-here"}
-      "Open Modal"]
-     [:div {:id "modals-here"}]]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div
+       [:button {:hx-get "dialogs-bootstrap/modal"
+                 :class "btn btn-primary"
+                 :hx-trigger "click"
+                 :_ "on htmx:afterOnLoad wait 3000ms then add .show to #modal then add .show to #modal-backdrop"
+                 :hx-target "#modals-here"}
+        "Open Modal"]
+       [:div {:id "modals-here"}]]]]]))
 
 (defn modal [request]
   (ui

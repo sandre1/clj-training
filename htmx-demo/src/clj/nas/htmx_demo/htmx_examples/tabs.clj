@@ -11,10 +11,12 @@
     [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"  }]
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"  }]]
    [:body
-    [:div {:id "tabs"
-           :hx-get "tabs/tab1"
-           :hx-trigger "load delay:100ms"
-           :hx-target "#tabs"}]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div {:id "tabs"
+             :hx-get "tabs/tab1"
+             :hx-trigger "load delay:100ms"
+             :hx-target "#tabs"}]]]]))
 
 (defn tab1 [_request]
   (ui

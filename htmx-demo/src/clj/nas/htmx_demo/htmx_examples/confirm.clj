@@ -10,12 +10,16 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5" }]
     #_[:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:script {:src "https://cdn.jsdelivr.net/npm/sweetalert2@11"}]
-    [:button {:hx-trigger "confirmed"
-              :hx-get "confirmation-dialog/confirmed"
-              :_ "on click
+
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:script {:src "https://cdn.jsdelivr.net/npm/sweetalert2@11"}]
+      [:button {:hx-trigger "confirmed"
+                :hx-get "confirmation-dialog/confirmed"
+                :_ "on click
                            call Swal.fire({title: 'Confirm', text:'Do you want to continue?'})
-                           if result.isConfirmed trigger confirmed"} "click me"]]))
+                           if result.isConfirmed trigger confirmed"} "click me"]]]
+    ]))
 
 (defn confirmed
   [request]

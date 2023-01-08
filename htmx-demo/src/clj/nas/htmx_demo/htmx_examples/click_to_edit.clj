@@ -10,11 +10,13 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:div {:hx-target "this" :hx-swap "outerHTML"}
-     [:div [:label "First Name"] "Joe"]
-     [:div [:label "Last Name"] "Dark"]
-     [:div [:label "Email"] "joe@dark.com"]
-     [:button {:hx-get "click-to-edit/edit" :class "btn btn-primary"} "Click to edit"]]
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div {:hx-target "this" :hx-swap "outerHTML"}
+       [:div [:label "First Name"] "Joe"]
+       [:div [:label "Last Name"] "Dark"]
+       [:div [:label "Email"] "joe@dark.com"]
+       [:button {:hx-get "click-to-edit/edit" :class "btn btn-primary"} "Click to edit"]]]]
     ]))
 
 (defn edit [request]

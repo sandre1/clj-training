@@ -13,12 +13,14 @@
     [:script {:src "https://unpkg.com/htmx.org@1.8.4/dist/ext/class-tools.js"  }]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:div {:hx-target "this"
-           :hx-swap "outerHTML"}
-     [:h3 "Start Progress"]
-     [:button {:class "btn"
-               :hx-post "progress-bar/start"}
-      "Start Job"]]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div {:hx-target "this"
+             :hx-swap "outerHTML"}
+       [:h3 "Start Progress"]
+       [:button {:class "btn"
+                 :hx-post "progress-bar/start"}
+        "Start Job"]]]]]))
 
 (defn start [_request]
   (ui

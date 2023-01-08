@@ -10,9 +10,11 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:button {:hx-trigger "click, keyup[altKey&&shiftKey&&key=='P'] from:body"
-              :hx-post "keyboard-shortcut/doit"}
-     "Do it! (alt-shift-P)"]
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:button {:hx-trigger "click, keyup[altKey&&shiftKey&&key=='P'] from:body"
+                :hx-post "keyboard-shortcut/doit"}
+       "Do it! (alt-shift-P)"]]]
     ]))
 
 (defn doit [_request]

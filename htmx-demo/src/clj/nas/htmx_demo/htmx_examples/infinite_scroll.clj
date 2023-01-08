@@ -44,16 +44,18 @@
             [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"  }]
             [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
            [:body
-            (list [:table [:thead
-                     [:th "Name"]
-                     [:th "Email"]
-                     [:th "ID"]]
-             [:tbody (map #(if (= % (last @agents-team)) (last-agent-row %) (agent-row %)) @agents-team)]]
-                  [:div 
-                   [:img {:alt "Result loading..."
-           :class ""
-           :width "150"
-           :src "/img/bars.svg"}]])]))))
+            [:div {:class "container"}
+             [:div {:class "example-wrapper"}
+              (list [:table [:thead
+                             [:th "Name"]
+                             [:th "Email"]
+                             [:th "ID"]]
+                     [:tbody (map #(if (= % (last @agents-team)) (last-agent-row %) (agent-row %)) @agents-team)]]
+                    [:div
+                     [:img {:alt "Result loading..."
+                            :class ""
+                            :width "150"
+                            :src "/img/bars.svg"}]])]]]))))
 
 (defn add-more-agents [list-of-agents]
   (let [loaded-agents-nr (count @agents-team)

@@ -36,34 +36,72 @@
    [:head
     [:meta {:charset "UTF-8"}]
     [:title "Htmx + Kit"]
-    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"  }]
-    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"  }]
+    [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"}]
+    [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:div "Htmx examples"
-     [:ul
-      [:li [:a {:href "/click-to-edit"} "Click-to-edit"]]
-      [:li [:a {:href "/bulk-update"} "Bulk-update"]]
-      [:li [:a {:href "/click-to-load"} "Click-to-load"]]
-      [:li [:a {:href "/delete-row"} "Delete-row"]]
-      [:li [:a {:href "/edit-row"} "Edit-row"]]
-      [:li [:a {:href "/lazy-loading"} "Lazy-loading"]]
-      [:li [:a {:href "/inline-validation"} "Inline-validation"]]
-      [:li [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
-      [:li [:a {:href "/active-search"} "Active-search"]]
-      [:li [:a {:href "/progress-bar"} "Progress-bar"]]
-      [:li [:a {:href "/cascading-selects"} "Cascading selects"]] \
-      [:li [:a {:href "/animations"} "Animations"]]
-      [:li [:a {:href "/file-upload"} "File Upload"]]
-      [:li [:a {:href "/dialogs"} "Dialogs - Browser"]]
-      [:li [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]
-      [:li [:a {:href "/custom-modal"} "Custom Modal Dialog"]]
-      [:li [:a {:href "/tabs"} "Tabs"]]
-      [:li [:a {:href "/hyper-tabs"} "Tabs - hyperscript"]]
-      [:li [:a {:href "/keyboard-shortcut"} "Keyboard Shortcut"]]
-      [:li [:a {:href "/sortable"} "Sortable"]]
-      [:li [:a {:href "/updating-content"} "Updating content"]]
-      [:li [:a {:href "/confirmation-dialog"} "Confirmation dialog"]]]]]))
+    [:div {:class "container"}
+     [:div {:class "examples-wrapper"} "Htmx examples"
+      [:table {:class "examples-table"}
+       [:thead [:tr
+                [:th "Pattern"]
+                [:th "Description"]]]
+       [:tbody
+        [:tr
+         [:td [:a {:href "/click-to-edit"} "Click-to-edit"]]
+         [:td "Demonstrates inline editing of a data object"]]
+        [:tr
+         [:td [:a {:href "/bulk-update"} "Bulk-update"]]
+         [:td "Demonstrates bulk updating of multiple rows of data"]]
+        [:tr
+         [:td [:a {:href "/click-to-load"} "Click-to-load"]]
+         [:td "Demonstrates clicking to load more rows in a table"]]
+        [:tr
+         [:td [:a {:href "/delete-row"} "Delete-row"]]
+         [:td "Demonstrates row deletion in a table"]]
+        [:tr
+         [:td [:a {:href "/edit-row"} "Edit-row"]]
+         [:td "Demonstrates how to edit rows in a table"]]
+        [:tr
+         [:td [:a {:href "/lazy-loading"} "Lazy-loading"]]
+         [:td "Demonstrates how to lazy load content"]]
+        [:tr
+         [:td [:a {:href "/inline-validation"} "Inline-validation"]]
+         [:td "Demonstrates how to do inline field validation"]]
+        [:tr
+         [:td [:a {:href "/infinite-scroll"} "Infinite-scroll"]]
+         [:td "Demonstrates infinite scrolling of a page"]]
+        [:tr [:td [:a {:href "/active-search"} "Active-search"]]
+         [:td "Demonstrates the active search box pattern"]]
+        [:tr 
+         [:td [:a {:href "/progress-bar"} "Progress-bar"]]
+         [:td "Demonstrates a job-runner like progress bar"]]
+        [:tr 
+         [:td [:a {:href "/cascading-selects"} "Cascading selects"]]
+         [:td "Demonstrates making the values of a select dependent on another select"]]
+        [:tr 
+         [:td [:a {:href "/animations"} "Animations"]]
+         [:td "Demonstrates various animation techniques"]]
+        [:tr [:td [:a {:href "/file-upload"} "File Upload"]]
+         [:td "Demonstrates how to upload a file via ajax with a progress bar"]]
+        [:tr [:td [:a {:href "/dialogs"} "Dialogs - Browser"]]
+         [:td "Demonstrates the prompt and confirm dialogs"]]
+        [:tr [:td [:a {:href "/dialogs-bootstrap"} "Dialogs - Bootstrap"]]
+         [:td "Demonstrates modal dialogs using Bootstrap"]]
+        [:tr [:td [:a {:href "/custom-modal"} "Custom Modal Dialog"]]
+         [:td "Demonstrates modal dialogs from scratch"]]
+        [:tr [:td [:a {:href "/tabs"} "Tabs"]]
+         [:td "Demonstrates how to display and select tabs using HATEOAS principles"]]
+        [:tr [:td [:a {:href "/hyper-tabs"} "Tabs - hyperscript"]]
+         [:td "Demonstrates how to display and select tabs using Hyperscript"]]
+        [:tr [:td [:a {:href "/keyboard-shortcut"} "Keyboard Shortcut"]]
+         [:td "Demonstrates how to create keyboard shortcuts for htmx enabled elements"]]
+        [:tr [:td [:a {:href "/sortable"} "Sortable"]]
+         [:td "Demonstrates how to use htmx with the Sortable.js plugin to implement drag-and-drop reordering"]]
+        [:tr [:td [:a {:href "/updating-content"} "Updating content"]]
+         [:td "Demonstrates how to update content beyond just the target elements"]]
+        [:tr [:td [:a {:href "/confirmation-dialog"} "Confirmation dialog"]]
+         [:td "Demonstrates how to implement a custom confirmation dialog with htmx"]]]]]]]))
 
 ;; (defn home [request]
 ;;   (layout/render request "base.html" {}))

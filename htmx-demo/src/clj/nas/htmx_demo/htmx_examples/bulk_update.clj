@@ -28,17 +28,19 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:form {:id "checked-contacts"}
-     [:table
-      [:thead [:tr [:th]
-               [:th "Name"]
-               [:th "Email"]
-               [:th "Status"]]
-       [:tbody {:id "tbody"}
-        (generate-rows @bulk-update-state)]]]]
-    [:div {:hx-include "#checked-contacts" :hx-target "#tbody"}
-     [:a {:class "btn" :hx-put "/bulk-update/activate"} "Activate"]
-     [:a {:class "btn" :hx-put "/bulk-update/deactivate"} "Deactivate"]]]
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:form {:id "checked-contacts"}
+       [:table
+        [:thead [:tr [:th]
+                 [:th "Name"]
+                 [:th "Email"]
+                 [:th "Status"]]
+         [:tbody {:id "tbody"}
+          (generate-rows @bulk-update-state)]]]]
+      [:div {:hx-include "#checked-contacts" :hx-target "#tbody"}
+       [:a {:class "btn" :hx-put "/bulk-update/activate"} "Activate"]
+       [:a {:class "btn" :hx-put "/bulk-update/deactivate"} "Deactivate"]]]]]
    ))
 
 (defn create-activation-data [state request-params]

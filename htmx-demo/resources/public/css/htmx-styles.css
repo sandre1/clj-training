@@ -1,3 +1,10 @@
+.container {
+	display: flex;
+	justify-content: center;
+}
+.examples-wrapper, .example-wrapper {
+	min-width: 800px;
+}
 .btn {
   padding: 1em;
   letter-spacing: .1em;

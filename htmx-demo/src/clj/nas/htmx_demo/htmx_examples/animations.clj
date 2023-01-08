@@ -14,28 +14,30 @@
     [:script {:src "https://unpkg.com/htmx.org@1.8.4/dist/ext/class-tools.js"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    #_[:div {:id "color-demo"
-             :class "smooth"
-             :style "color:red"
-             :hx-get "/animations/colors"
-             :hx-swap "outerHTML"
-             :hx-trigger "every 1s"}
-       "Color Swap Demo"]
-    [:button {:class "fade-me-out"
-              :hx-delete "animations/fade-out-demo"
-              :hx-swap "outerHTML swap:1s"}
-     "Fade me out"]
-    [:button {:id "fade-me-in"
-              :hx-post "animations/fade-in-demo"
-              :hx-swap "outerHTML settle:1s"}
-     "Fade me in"]
-    [:form {:hx-post "animations/name"}
-     [:label "Name"]
-     [:input {:name "name"}]
-     [:button "Submit"]]
-    [:div {:hx-ext "class-tools"
-           :class "demo"
-           :classes "toggle faded:1s"} "Toggle Demo"]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      #_[:div {:id "color-demo"
+               :class "smooth"
+               :style "color:red"
+               :hx-get "/animations/colors"
+               :hx-swap "outerHTML"
+               :hx-trigger "every 1s"}
+         "Color Swap Demo"]
+[:button {:class "fade-me-out"
+          :hx-delete "animations/fade-out-demo"
+          :hx-swap "outerHTML swap:1s"}
+ "Fade me out"]
+[:button {:id "fade-me-in"
+          :hx-post "animations/fade-in-demo"
+          :hx-swap "outerHTML settle:1s"}
+ "Fade me in"]
+[:form {:hx-post "animations/name"}
+ [:label "Name"]
+ [:input {:name "name"}]
+ [:button "Submit"]]
+[:div {:hx-ext "class-tools"
+       :class "demo"
+       :classes "toggle faded:1s"} "Toggle Demo"]]]]))
 
 #_(defn colors [_request]
     (ui

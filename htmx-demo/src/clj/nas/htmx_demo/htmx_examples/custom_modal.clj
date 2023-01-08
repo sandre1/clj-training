@@ -11,12 +11,15 @@
     [:script {:src "https://unpkg.com/htmx.org@1.7.0/dist/htmx.min.js"}]
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]]
    [:body
-    [:div
-     [:button {:hx-get "custom-modal/modal"
-               :hx-target "body"
-               :hx-trigger "click"
-               :hx-swap "beforeend"}
-      "Open a Modal"]]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div
+       [:button {:hx-get "custom-modal/modal"
+                 :hx-target "body"
+                 :hx-trigger "click"
+                 :hx-swap "beforeend"}
+        "Open a Modal"]]]]
+    ]))
 
 (defn modal [_request]
   (ui

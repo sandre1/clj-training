@@ -40,19 +40,22 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:table
-     [:thead [:tr
-              [:th "Name"]
-              [:th "Email"]
-              [:th "ID"]]]
-     [:tbody {:id "tbody"}
-       (data-rows (take 10 agents))
-       [:tr {:id "replaceMe"}
-        [:td {:colspan 3}
-         [:button {:class "btn"
-                   :hx-get "/click-to-load/load-more?page=2"
-                   :hx-target "#replaceMe"
-                   :hx-swap "outerHTML"} "Load more agents..."]]]]]]))))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:table
+       [:thead [:tr
+                [:th "Name"]
+                [:th "Email"]
+                [:th "ID"]]]
+       [:tbody {:id "tbody"}
+        (data-rows (take 10 agents))
+        [:tr {:id "replaceMe"}
+         [:td {:colspan 3}
+          [:button {:class "btn"
+                    :hx-get "/click-to-load/load-more?page=2"
+                    :hx-target "#replaceMe"
+                    :hx-swap "outerHTML"} "Load more agents..."]]]]]]]
+    ]))))
 
 (defn construct-tr [state]
   (for [i @state]

@@ -10,29 +10,31 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:h3 "Signup Form"]
-    [:form {:hx-post "inline-validation/contact"}
-     [:div {:hx-target "this"
-            :hx-swap "outerHTML"}
-      [:label "Email Address"]
-      [:input {:name "email"
-               :type "email"
-               :hx-post "/inline-validation/contact/email"
-               :hx-indicator "#ind"}]
-      [:img {:id "ind"
-             :src "/img/bars.svg"
-             :class "htmx-indicator"}]]
-     [:div {:class "form-group"}
-      [:label "First Name"]
-      [:input {:type "text"
-               :class "form-control"
-               :name "firstName"}]]
-     [:div {:class "form-group"}
-      [:label "Last Name"]
-      [:input {:type "text"
-               :class "form-control"
-               :name "lastName"}]]
-     [:button {:class "btn btn-default"} "Submit"]]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:h3 "Signup Form"]
+      [:form {:hx-post "inline-validation/contact"}
+       [:div {:hx-target "this"
+              :hx-swap "outerHTML"}
+        [:label "Email Address"]
+        [:input {:name "email"
+                 :type "email"
+                 :hx-post "/inline-validation/contact/email"
+                 :hx-indicator "#ind"}]
+        [:img {:id "ind"
+               :src "/img/bars.svg"
+               :class "htmx-indicator"}]]
+       [:div {:class "form-group"}
+        [:label "First Name"]
+        [:input {:type "text"
+                 :class "form-control"
+                 :name "firstName"}]]
+       [:div {:class "form-group"}
+        [:label "Last Name"]
+        [:input {:type "text"
+                 :class "form-control"
+                 :name "lastName"}]]
+       [:button {:class "btn btn-default"} "Submit"]]]]]))
 
 (defn email? [request]
   (ui (let [p (:params request)

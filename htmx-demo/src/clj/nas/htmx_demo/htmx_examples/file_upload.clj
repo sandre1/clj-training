@@ -12,19 +12,22 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:form {:id "form"
-            :hx-encoding "multipart/form-data"
-            :hx-post "/file-upload/upload"}
-     [:input {:type "file"
-              :name "file"}
-      [:button "Upload"]
-      [:progress {:id "progress"
-                  :value 0
-                  :max 100}]]]
-    [:script
-     "htmx.on('#form', 'htmx:xhr:progress', function(evt) {
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:form {:id "form"
+              :hx-encoding "multipart/form-data"
+              :hx-post "/file-upload/upload"}
+       [:input {:type "file"
+                :name "file"}
+        [:button "Upload"]
+        [:progress {:id "progress"
+                    :value 0
+                    :max 100}]]]
+      [:script
+       "htmx.on('#form', 'htmx:xhr:progress', function(evt) {
           htmx.find('#progress').setAttribute('value', evt.detail.loaded/evt.detail.total * 100)
-        });"]]))
+        });"]]]
+    ]))
 
 (defn upload
   [request]

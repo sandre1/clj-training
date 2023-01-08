@@ -26,13 +26,15 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:table {:class "table delete-row-example"}
-     [:thead [:tr [:th "Name"]
-              [:th "Email"]
-              [:th]]]
-     [:tbody {:hx-target "closest tr"
-              :hx-swap "outerHTML"}
-      (make-rows @users)]]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:table {:class "table delete-row-example"}
+       [:thead [:tr [:th "Name"]
+                [:th "Email"]
+                [:th]]]
+       [:tbody {:hx-target "closest tr"
+                :hx-swap "outerHTML"}
+        (make-rows @users)]]]]]))
 
 (defn edit [request]
 (ui (let [params (:path-params request)

@@ -23,18 +23,20 @@
     [:script {:src "https://unpkg.com/hyperscript.org@0.9.5"}]
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
-    [:div 
-     [:label "Make"]
-     [:select {:name "make"
-               :hx-get "/cascading-selects/models"
-               :hx-target "#models"
-               :hx-indicator ".htmx-indicator"}
-      (make-options cars)]]
-    [:div [:label "Model"]
-     [:select {:id "models"
-               :name "model"}
-      [:option {:value "a1"} "A1"]
-      [:option {:value "a3"} "A3"]]]]))
+    [:div {:class "container"}
+     [:div {:class "example-wrapper"}
+      [:div
+       [:label "Make"]
+       [:select {:name "make"
+                 :hx-get "/cascading-selects/models"
+                 :hx-target "#models"
+                 :hx-indicator ".htmx-indicator"}
+        (make-options cars)]]
+      [:div [:label "Model"]
+       [:select {:id "models"
+                 :name "model"}
+        [:option {:value "a1"} "A1"]
+        [:option {:value "a3"} "A3"]]]]]]))
 
 (defn models [request]
   (ui 
