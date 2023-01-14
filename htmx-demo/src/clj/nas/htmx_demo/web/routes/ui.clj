@@ -41,7 +41,9 @@
     [:link {:href "/css/htmx-styles.css" :rel "stylesheet" :type "text/css"}]]
    [:body
     [:div {:class "container"}
-     [:div {:class "examples-wrapper"} "Htmx examples"
+     [:div {:class "examples-wrapper"}
+      [:h2 "UI Examples"]
+      [:p "Below are a set of UX patterns implemented in htmx with minimal HTML and styling, integrated with Clojure."]
       [:table {:class "examples-table"}
        [:thead [:tr
                 [:th "Pattern"]
@@ -73,13 +75,13 @@
          [:td "Demonstrates infinite scrolling of a page"]]
         [:tr [:td [:a {:href "/active-search"} "Active-search"]]
          [:td "Demonstrates the active search box pattern"]]
-        [:tr 
+        [:tr
          [:td [:a {:href "/progress-bar"} "Progress-bar"]]
          [:td "Demonstrates a job-runner like progress bar"]]
-        [:tr 
+        [:tr
          [:td [:a {:href "/cascading-selects"} "Cascading selects"]]
          [:td "Demonstrates making the values of a select dependent on another select"]]
-        [:tr 
+        [:tr
          [:td [:a {:href "/animations"} "Animations"]]
          [:td "Demonstrates various animation techniques"]]
         [:tr [:td [:a {:href "/file-upload"} "File Upload"]]
