@@ -79,6 +79,10 @@ a[href]:hover {
   margin: 10px;
   display: inline-block;
 }
+pre {
+    overflow: auto;
+    font-size: .9em;
+}
 .htmx-settling tr.deactivate td {
   background: lightcoral;
 }
