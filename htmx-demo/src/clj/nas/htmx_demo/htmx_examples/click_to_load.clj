@@ -42,6 +42,24 @@
    [:body
     [:div {:class "container"}
      [:div {:class "example-wrapper"}
+      
+      [:h2 "Click To Load"]
+      
+      [:p "This example shows how to implement click-to-load the next page in a table of data.  The crux of the demo is the final row:"]
+      
+      [:pre [:code {:class "language-html"}
+             "         [:tr {:id \"replaceMe\"}
+         [:td {:colspan 3}
+          [:button {:class \"btn\"
+                    :hx-get \"/click-to-load/load-more?page=2\"
+                    :hx-target \"#replaceMe\"
+                    :hx-swap \"outerHTML\"} \"Load more agents...\"]]]
+         "]]
+      
+      [:p "This row contains a button that will replace the entire row with the next page of results (which will contain a button to load the next page of results). And so on."]
+      
+      [:h2 "Demo"]
+      
       [:table
        [:thead [:tr
                 [:th "Name"]
