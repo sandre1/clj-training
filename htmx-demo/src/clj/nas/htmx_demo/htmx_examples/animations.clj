@@ -58,7 +58,7 @@
       [:p "If you want to fade out an element that is going to be removed when the request ends, you want to take advantage of the " [:code "htmx-swapping"] " class with some CSS and extend the swap phase to be long enough for your animation to complete. This can be done like so:"]
 
       [:pre [:code {:class "language-html"}
-             "         [:style \".smooth {transition: all 1s ease-in;}\"]
+             "         [:style \".fade-me-out.htmx-swapping {opacity: 0; transition: all 1s ease-out;}\"]
          [:button {:class \"fade-me-out\"
                    :hx-delete \"animations/fade-out-demo\"
                    :hx-swap \"outerHTML swap:1s\"}
@@ -70,17 +70,64 @@
                 :hx-swap "outerHTML swap:1s"}
        "Delete me"]
 
+      [:h3 [:a {:name "settling"}] [:a {:href "#settling"} "Settling Transitions"]]
+      [:h4 "Fade In On Addition"]
+      [:p "Building on the last example, we can fade in the new content by using the " [:code "htmx-added"] " class during the settle phase. You can also write CSS transitions against the target, rather than the new content, by using the " [:code "htmx-settling"] " class."]
+
+      [:pre [:code {:class "language-html"}
+             "         [:style \"#fade-me-in.htmx-added {opacity: 0;}
+                  #fade-me-in {opacity: 1; transition: opacity 1s ease-out;}\"]
+         [:button {:id \"fade-me-in\"
+                :hx-post \"animations/fade-in-demo\"
+                :hx-swap \"outerHTML settle:1s\"}
+         \"Fade me in\"]"]]
+
+      [:h5 "Demo"]
       [:button {:id "fade-me-in"
                 :hx-post "animations/fade-in-demo"
                 :hx-swap "outerHTML settle:1s"}
        "Fade me in"]
+
+      [:h3 [:a {:name "request"}] [:a {:href "#request"} "Request In Flight Animation"]]
+      [:p "You can also take advantage of the " [:code "htmx-request"] " class, which is applied to the element that triggers a request. Below is a form that on submit will change its look to indicate that a request is being processed:"]
+
+      [:pre [:code {:class "language-html"}
+             "         [:style \"form.htmx-request {opacity: 0.5;
+             transition: opacity 300ms linear;}\"]
+         [:form {:hx-post \"animations/name\"}
+              [:label \"Name\"]
+              [:input {:name \"name\"}][:br]
+              [:button \"Submit\"]]"]]
+
+      [:h5 "Demo"]
+
       [:form {:hx-post "animations/name"}
        [:label "Name"]
-       [:input {:name "name"}]
+       [:input {:name "name"}] [:br]
        [:button "Submit"]]
+
+      [:h3 "Using the HTMX " [:code "class-tools"] " Extensions"]
+      [:p "Many interesting animations can be created by using the " [:code "class-tools"] " extension."]
+      [:p "Here is an example that toggles the opacity of a div. Note that we set the toggle time to be a bit longer than the transition time. This avoids flickering that can happen if the transition is interrupted by a class change."]
+
+      [:pre [:code {:class "language-html"}
+             "         [:style \".demo.faded {opacity: 0.3;}
+                  .demo {opacity: 1; transition: opacity ease-in 900ms;}\"]
+         [:div {:hx-ext \"class-tools\"
+                :class \"demo\"
+                :classes \"toggle faded:1s\"}
+          \"Toggle Demo\"]"]]
+
+      [:h5 "Demo"]
+
       [:div {:hx-ext "class-tools"
              :class "demo"
-             :classes "toggle faded:1s"} "Toggle Demo"]]]]))
+             :classes "toggle faded:1s"} "Toggle Demo"]
+
+      [:h5 "Conclusion"]
+      [:p "You can use the techniques above to create quite a few interesting and pleasing effects with plain old HTML while using htmx."]]]]))
+
+
 
 #_(defn colors [_request]
     (ui
