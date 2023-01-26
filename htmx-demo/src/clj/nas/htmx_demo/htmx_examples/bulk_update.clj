@@ -30,6 +30,47 @@
    [:body
     [:div {:class "container"}
      [:div {:class "example-wrapper"}
+
+      [:h2 "Bulk Update"]
+      [:p "This demo shows how to implement a common pattern where rows are selected and then bulk updated.  This is accomplished by putting a form around a table, with checkboxes in the table, and then including the checked values in " [:code "PUT"] "'s to two different endpoints: " [:code "activate"] " and " [:code "deactivate"] ":"]
+      
+      [:pre [:code {:class "language-html"}
+             "[:form {:id \"checked-contacts\"}
+       [:table
+        [:thead 
+         [:tr 
+          [:th]
+          [:th \"Name\"]
+          [:th \"Email\"]
+          [:th \"Status\"]]
+        [:tbody {:id \"tbody\"}
+         [:tr {:class \"\"}
+          [:td [:input {:type 'checkbox' :name 'ids' :value '0'}]]
+          [:td \"Joe Smith\"]
+          [:td \"joe@smith.com\"]
+          [:td \"Active\"]]
+          ]
+           .....    
+        ]]]         
+[:div {:hx-include \"#checked-contacts\"
+       :hx-target \"#body\"}
+[:a {:class \"btn\"
+     :hx-put \"/bulk-update/activate\"} \"Activate\"]
+[:a {:class \"btn\"
+     :hx-put \"/bulk-update/deactivate\"} \"Deactivate\"]]"]]
+      
+      [:p "The server will either activate or deactivate the checked users and then rerender the " [:code "tbody"] " tag with updated rows. It will apply the class " [:code "activate"] " or " [:code "deactivate"] " to rows that have been mutated. This allows us to use a bit of CSS to flash a color helping the user see what happened:"]
+
+      [:pre [:code {:class "language-html"}
+             "         [:style  \".htmx-settling tr.deactivate td {background: lightcoral;}
+                   .htmx-settling tr.activate td {background: darkseagreen;}
+                   tr td {transition: all 1.2s;}\"]
+         "]]
+
+      [:p "You can see a working example of this code below."]
+
+      [:h2 "Demo"]
+      [:h3 "Select Rows And Activate Or Deactivate Below"]
       [:form {:id "checked-contacts"}
        [:table
         [:thead [:tr [:th]
@@ -40,13 +81,12 @@
           (generate-rows @bulk-update-state)]]]]
       [:div {:hx-include "#checked-contacts" :hx-target "#tbody"}
        [:a {:class "btn" :hx-put "/bulk-update/activate"} "Activate"]
-       [:a {:class "btn" :hx-put "/bulk-update/deactivate"} "Deactivate"]]]]]
-   ))
+       [:a {:class "btn" :hx-put "/bulk-update/deactivate"} "Deactivate"]]]]]))
 
 (defn create-activation-data [state request-params]
-    (let [request-ids (vals request-params)
-          ids (flatten (list request-ids))]
-      (swap! state 
+  (let [request-ids (vals request-params)
+        ids (flatten (list request-ids))]
+    (swap! state
            (fn [persons]
              (map (fn [person]
                     (if (some #(= (:index person) %) ids)
@@ -55,9 +95,9 @@
                   persons)))))
 
 (defn create-deactivation-data [state request-params]
-    (let [request-ids (vals request-params)
-          ids (flatten (list request-ids))]
-      (swap! state 
+  (let [request-ids (vals request-params)
+        ids (flatten (list request-ids))]
+    (swap! state
            (fn [persons]
              (map (fn [person]
                     (if (some #(= (:index person) %) ids)
