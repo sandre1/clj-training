@@ -79,7 +79,7 @@
          [:td [:a {:href "/progress-bar"} "Progress-bar"]]
          [:td "Demonstrates a job-runner like progress bar"]]
         [:tr
-         [:td [:a {:href "/cascading-selects"} "Cascading selects"]]
+         [:td [:a {:href "/value-select"} "Value Select"]]
          [:td "Demonstrates making the values of a select dependent on another select"]]
         [:tr
          [:td [:a {:href "/animations"} "Animations"]]
@@ -137,8 +137,8 @@
    ["/progress-bar" {:get prog-bar/home}]
    ["/progress-bar/start" {:post prog-bar/start}]
    ["/progress-bar/job" {:get prog-bar/job}]
-   ["/cascading-selects" {:get cselects/home}]
-   ["/cascading-selects/models" {:get cselects/models}]
+   ["/value-select" {:get cselects/home}]
+   ["/value-select/models" {:get cselects/models}]
    ["/animations" {:get animations/home}]
    ["/animations/colors" {:get animations/colors}]
    ["/animations/fade-out-demo" {:delete animations/fade-out-demo}]

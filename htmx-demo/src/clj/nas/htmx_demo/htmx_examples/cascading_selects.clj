@@ -25,18 +25,45 @@
    [:body
     [:div {:class "container"}
      [:div {:class "example-wrapper"}
+      [:h2 "Cascading Selects"]
+      [:p "In this example we show how to make the values in one " [:code "select"] " depend on the value selected in another " [:code "select"] "."]
+      [:p "To begin we start with a default value for the  " [:code "make"] " select: Audi. We render the " [:code "model"] " select for this make. We then have the " [:code "make"] " select trigger a " [:code "GET"] " to " [:code "/models"] " to retrieve the models options and target the " [:code "models"] " select."]
+      [:p "Here is the code:"]
+      
+      [:pre
+       [:code {:class "language-html"}
+        "[:div
+  [:label \"Make\"]
+  [:select {:name \"make\"
+            :hx-get \"/value-select/models\"
+            :hx-target \"#models\"
+            :hx-indicator \".htmx-indicator\"}
+  [:option {:value \"acura\"} \"Acura\"]
+  [:option {:value \"alfa-romeo\"} \"Alfa Romeo\"]
+  [:option {:value \"aston-martin\"} \"Aston Martin\"]]]
+  [:div [:label \"Model\"]
+   [:select {:id \"models\"
+             :name \"model\"}
+     [:option {:value \"integra\"} \"Integra\"]
+         ...
+  ]]"]]
+      
+      [:p "When a request is made to the " [:code "/value-select/models"] " end point, we return the models for that make, and they become available in the " [:code "model"] " select."]
+      
+      
       [:div
        [:label "Make"]
        [:select {:name "make"
-                 :hx-get "/cascading-selects/models"
+                 :hx-get "/value-select/models"
                  :hx-target "#models"
                  :hx-indicator ".htmx-indicator"}
         (make-options cars)]]
       [:div [:label "Model"]
        [:select {:id "models"
                  :name "model"}
-        [:option {:value "a1"} "A1"]
-        [:option {:value "a3"} "A3"]]]]]]))
+        [:option {:value "integra"} "Integra"]
+        [:option {:value "tlx"} "TLX"]
+        [:option {:value ""} "..."]]]]]]))
 
 (defn models [request]
   (ui 
@@ -52,7 +79,7 @@
   (let [cars (group-by :make cars)]
     (select-keys cars ["Acura"]))
   (let [c (group-by :make cars)]
-    (map (fn [[k v]] (str "make is: " k)) c))
+    (map (fn [[k v]] (str "make is: " v)) c))
   
   0)
 
