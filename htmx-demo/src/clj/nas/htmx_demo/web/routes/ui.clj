@@ -114,7 +114,7 @@
   [["/" home]
    ["/click-to-edit" {:get click-to-edit/home}]
    ["/click-to-edit/edit" {:get click-to-edit/edit
-                           :post click-to-edit/post-edit}]
+                           :put click-to-edit/post-edit}]
    ["/bulk-update" {:get bulk-update/home}]
    ["/bulk-update/activate" {:put bulk-update/activate}]
    ["/bulk-update/deactivate" {:put bulk-update/deactivate}]
