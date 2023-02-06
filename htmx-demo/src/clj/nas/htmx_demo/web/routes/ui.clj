@@ -166,7 +166,7 @@
    ["/sortable/items" {:post sortable/items}]
    ["/updating-content" {:get uc/home}]
    ["/updating-content/contacts" {:post uc/contacts}]
-   ["/updating-content/contacts-sol2" {:post uc/contacts-sol2}]
+   ["/updating-content/contacts-sol-two" {:post uc/contacts-sol-two}]
    ["/confirmation-dialog" {:get confirm/home}]
    ["/confirmation-dialog/confirmed" {:get confirm/confirmed}]])
 
