@@ -32,7 +32,8 @@
 [:div {:id \"tab-contents\"
        :hx-get \"/tab1\"
        :hx-trigger \"load\"}]"]]
-
+      
+      [:h2 "Demo"]
       [:div {:id "tabs"
              :hx-target "#tab-contents"
              :_ "on htmx:afterOnLoad take .selected for event.target"}

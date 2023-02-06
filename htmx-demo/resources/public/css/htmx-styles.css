@@ -291,3 +291,10 @@ form.htmx-request {
   padding: 10px;
   margin-bottom: 100px;
 }
+
+.drag-item {
+  border:1px solid #DEDEDE;
+  padding:12px;
+  margin: 8px;
+  width:200px;
+}

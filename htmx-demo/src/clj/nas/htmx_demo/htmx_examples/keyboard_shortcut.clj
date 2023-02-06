@@ -12,6 +12,23 @@
    [:body
     [:div {:class "container"}
      [:div {:class "example-wrapper"}
+      
+      [:h2 "Keyboard Shortcut"]
+      [:p "In this example we show how to create a keyboard shortcut for an action."]
+      [:p "We start with a simple button that loads some content from the server:"]
+      
+      [:pre
+       [:code {:class "language-html"}
+        "[:button {:hx-trigger \"click, keyup[altKey&&shiftKey&&key=='P'] from:body\"
+          :hx-post \"keyboard-shortcut/doit\"}
+ \"Do it! (alt-shift-P)\"]"]]
+      
+      [:p "Note that the button responds to both the " [:code "click"] " event (as usual) and also the keyup event when " [:code "alt-shift-P"] " is pressed. The " [:code "from:"] " modifier is used to listen for the keyup event on the " [:code "body"] " element, thus making it a \"global\" keyboard shortcut."]
+      [:p "You can trigger the demo below by either clicking on the button, or by hitting alt-shift-P."]
+      [:p "You can find out the conditions needed for a given keyboard shortcut here:"]
+      [:p "https://javascript.info/keyboard-events"]
+      
+      [:h2 "Demo"]
       [:button {:hx-trigger "click, keyup[altKey&&shiftKey&&key=='P'] from:body"
                 :hx-post "keyboard-shortcut/doit"}
        "Do it! (alt-shift-P)"]]]
