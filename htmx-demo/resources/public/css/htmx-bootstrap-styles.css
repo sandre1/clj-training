@@ -1,0 +1,119 @@
+body {
+    overflow-x: hidden;
+    margin: 0;
+    margin-bottom: 50px;
+    line-height: 1.5em;
+    font-size: 16px;
+    color: #333;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif !important;
+}
+ body .container-custom code {
+    font-size: .9em
+}
+code:not(code[class*=language-]) {
+    background: #3465a424;
+    border-radius: 2px;
+    padding: 2px 5px
+}
+.container-custom {
+	display: flex;
+	justify-content: center;
+}
+.examples-wrapper, .example-wrapper {
+	max-width: 50em;
+	padding: 0 .7em;
+	margin: 0 auto;
+}
+p {
+    margin: .5em 0
+}
+a {
+    text-decoration: none;
+    color: #3465a4
+}
+h2:not(:first-child) {
+    margin-top: 42px
+}
+
+h3 {
+    margin-top: 32px
+}
+
+h4 {
+    margin-top: 16px
+}
+td {
+    padding: .2em .2em .2em 0;
+    text-align: left;
+    border-bottom: 1px solid #eee
+}
+
+th {
+    padding: .2em .2em .2em 0;
+    text-align: left;
+    border-bottom: 2px solid #eee
+}
+h1,
+h2,
+h3,
+h4 {
+    margin-bottom: .65em;
+    font-weight: 600;
+    line-height: 1em
+}
+table {
+    font-size: 16px; 
+	width: 100%
+}
+.btn:hover,
+a[href]:hover {
+    opacity: .6
+}
+.btn {
+  padding: 1em;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  background: #fff;
+  border: solid;
+  cursor: pointer;
+  border-radius: 8px;
+  margin: 10px;
+  display: inline-block;
+}
+pre {
+    overflow: auto;
+    font-size: .9em;
+}
+.htmx-settling tr.deactivate td {
+  background: lightcoral;
+}
+
+.htmx-settling tr.activate td {
+  background: darkseagreen;
+}
+
+tr td {
+  transition: all 1.2s;
+}
+
+tr.htmx-swapping td {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.htmx-settling img {
+  opacity: 0;
+}
+
+.smooth {
+  transition: all 1s ease-in;
+}
+.fade-me-out.htmx-swapping {
+  opacity: 0;
+  transition: opacity 1s ease-out;
+}
+
+.demo {
+  opacity:1;
+  transition: opacity ease-in 900ms;
+}

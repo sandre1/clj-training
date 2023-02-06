@@ -13,6 +13,40 @@
    [:body
     [:div {:class "container"}
      [:div {:class "example-wrapper"}
+      
+      [:h2 "Tabs (Using HATEOAS)"]
+      [:p "This example shows how easy it is to implement tabs using htmx. Following the principle of " [:a {:href "https://en.wikipedia.org/wiki/HATEOAS"}"Hypertext As The Engine Of Application State"] ", the selected tab is a part of the application state. Therefore, to display and select tabs in your application, simply include the tab markup in the returned HTML. If this does not suit your application server design, you can also use a little bit of " [:a {:href "/hyper-tabs"} "Hyperscript to select tabs instead"] "."]
+      
+      [:h3 "Example Code (Main Page)"]
+      [:p "The main page simply includes the following HTML to load the initial tab into the DOM."]
+      
+      [:pre
+       [:code {:class "language-html"}
+        "[:div {:id \"tabs\"
+             :hx-get \"tabs/tab1\"
+             :hx-trigger \"load delay:100ms\"
+             :hx-target \"#tabs\"}]"]]
+      
+      [:h3 "Example Code (Each Tab)"]
+      [:p "Subsequent tab pages display all tabs and highlight the selected one accordingly."]
+      
+      [:pre
+       [:code {:class "language-html"}
+        "[:div {:class \"tab-list\"}
+    [:a {:hx-get \"tabs/tab1\"
+         :class \"selected\"} \"Tab 1\"]
+    [:a {:hx-get \"tabs/tab2\"} \"Tab 2\"]
+    [:a {:hx-get \"tabs/tab3\"} \"Tab 3\"]]
+  [:div {:class \"tab-content\"}
+    \"Commodo normcore truffaut VHS duis gluten-free keffiyeh iPhone taxidermy godard ramps anim pour-over. 
+	Pitchfork vegan mollit umami quinoa aute aliquip kinfolk eiusmod live-edge cardigan ipsum locavore. 
+	Polaroid duis occaecat narwhal small batch food truck. 
+	PBR&B venmo shaman small batch you probably haven't heard of them hot chicken readymade. 
+	Enim tousled cliche woke, typewriter single-origin coffee hella culpa. 
+	Art party readymade 90's, asymmetrical hell of fingerstache ipsum.\"]"]]
+      
+      [:h2 "Demo"]
+      
       [:div {:id "tabs"
              :hx-get "tabs/tab1"
              :hx-trigger "load delay:100ms"
