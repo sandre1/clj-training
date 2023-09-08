@@ -7,8 +7,14 @@
     FileReader
     FileWriter
     BufferedReader
-    BufferedWriter)
-   (java.util Scanner Locale)))
+    BufferedWriter
+    Console
+    BufferedOutputStream
+    BufferedInputStream
+    DataInputStream
+    DataOutputStream
+    EOFException)
+   (java.util Scanner Locale Arrays)))
 
 (defn copy-bytes []
   (let [in (FileInputStream. "files/test.txt")
@@ -85,15 +91,118 @@
 
 (Root 5)
 
+#_(defn Root2 [i]
+  (let [r (math/sqrt i)]
+    (.printf System/out "The square root of %d is %f.%n" i r)))
+
+#_(Root2 2)
+
+(def user (atom {:id 222 
+                 :pass 12345}))
+
+(defn verify [login password]
+  (let [u @user]
+    (and (= (:id u) 222)
+         (= (:pass u) 12345))))
+
+(defn change [login password]
+  (swap! user assoc :pass password)
+  (println "Change called with login: " login " and password: " password))
+
+(defn password [&args]
+  (let [c (System/console)]
+    (when (= c nil) (do
+                      (println "No console.")
+                      (System/exit 1)))
+    (let [login (.readLine c "Enter your login: " nil)
+          oldPassword (.readPassword c "Enter your old password: " nil)]
+      (when (verify login oldPassword)
+        (let [newPassword1 (.readPassword c "Enter your new password: " nil)
+              newPassword2 (.readPassword c "Enter new password again: " nil)
+              noMatch (not (Arrays/equals newPassword1 newPassword2))]
+          (while noMatch
+            (if noMatch
+              (.format c "Passwords don't match. Try again.%n" nil)
+              (change login newPassword1))))))))
+
+
+
+(defn print-login [&args]
+  (let [c (System/console)
+        login (.readLine c "Enter login: " nil)]
+    (println "You have entered: " login)))
+
+
+(defn data-streams []
+  (let [data-file "invoicedata"
+        prices [19.99, 9.99, 15.99, 3.99, 4.99]
+        units [12 8 13 29 50]
+        descs ["Java T-shirt",
+               "Java Mug",
+               "Duke Juggling Dolls",
+               "Java Pin",
+               "Java Key Chain"]
+        total (atom 0.0)]
+    (with-open [out (DataOutputStream. (BufferedOutputStream. (FileOutputStream. data-file)))]
+      (loop [i 0]
+        (when (< i (count prices))
+          (let [price (nth prices i)
+                unit (nth units i)
+                desc (nth descs i)]
+            (.writeDouble out price)
+            (.writeInt out unit)
+            (.writeUTF out desc)
+            (println out)
+            (recur (inc i))))))
+    (with-open [in (DataInputStream. (BufferedInputStream. (FileInputStream. data-file)))]
+      (try (while true
+             (let [price (.readDouble in)
+                   unit (.readInt in)
+                   desc (.readUTF in)]
+               (printf "You ordered %d units of %s at $%.2f%n" unit desc price)
+               (swap! total + (* unit price))))
+           (catch EOFException _ (printf "For a TOTAL of: $%.2f%n" total)))
+      )))
+
+(data-streams)
+
+
+
+
+(loop [x 10]
+  (when (> x 1)
+    (println x)
+    (recur (- x 2))))
+
 
 (comment
   (let [input "one two three"
         s (Scanner. input)]
     (println (-> (.useDelimiter s ",\\s*")
-                  (.next)
-                     )))
+                 (.next))))
   (.read (FileInputStream. "empty.txt"))
 
   (.write (FileOutputStream. "x.txt") 101)
   (.print System/out "hello")
-  0)
+  (printf "You ordered %s" 122)
+  (let [a1 (to-array "nas")
+        h (Arrays/equals a1 a1)]
+    h)
+  (let [c (System/console)
+        login (.readLine c "Enter login")]
+    login)
+  (let [u (atom {:name "nas"
+                 :pass "parolica123"})
+        user @u]
+    (Arrays/equals "nas" (:name user)))
+  (let [prices [19.99, 9.99, 15.99, 3.99, 4.99]]
+    (loop [x 0]
+      (when (< x (count prices))
+        (let [num (nth prices x)]
+          (if (< num 10)
+            (do (println num)
+                (recur (inc x)))
+            (recur (inc x)))))))
+
+  0
+  )
