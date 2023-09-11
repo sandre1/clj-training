@@ -13,8 +13,10 @@
     BufferedInputStream
     DataInputStream
     DataOutputStream
+    ObjectInputStream
+    ObjectOutputStream
     EOFException)
-   (java.util Scanner Locale Arrays)))
+   (java.util Scanner Locale Arrays Calendar)))
 
 (defn copy-bytes []
   (let [in (FileInputStream. "files/test.txt")
@@ -30,7 +32,6 @@
         (if (not= in nil) (.close in) nil)
         (if (not= out nil) (.close out) nil)))))
 
-(copy-bytes)
 
 (defn copy-characters []
   (let [in-stream (FileReader. "files/test.txt")
@@ -45,7 +46,6 @@
         (if (not= in-stream nil) (.close in-stream) nil)
         (if (not= out-stream nil) (.close out-stream) nil)))))
 
-(copy-characters)
 
 (defn copy-characters-with-buffer-stream []
   (with-open [input-stream (BufferedReader. (FileReader. "files/test-buffer.txt"))
@@ -56,14 +56,12 @@
         (do (.write output-stream c)
             (recur (.read input-stream))) nil))))
 
-(copy-characters-with-buffer-stream)
 
 (defn break-input->tokens []
   (with-open [s (Scanner. (BufferedReader. (FileReader. "files/xanadu.txt")))]
     (while (.hasNext s)
       (println (.next (.useDelimiter s ",\\s*"))))))
 
-(break-input->tokens)
 
 (defn translating-individual-tokens []
   (let [thesum (atom 0.0)]
@@ -77,7 +75,6 @@
           (.next s))))
     (println @thesum)))
 
-(translating-individual-tokens)
 
 (defn Root [n]
   (let [r (math/sqrt n)
@@ -89,13 +86,11 @@
     (print-out ".")
     (.println System/out (str "The square root of " n " is " r "."))))
 
-(Root 5)
 
 #_(defn Root2 [i]
   (let [r (math/sqrt i)]
     (.printf System/out "The square root of %d is %f.%n" i r)))
 
-#_(Root2 2)
 
 (def user (atom {:id 222 
                  :pass 12345}))
@@ -152,7 +147,6 @@
             (.writeDouble out price)
             (.writeInt out unit)
             (.writeUTF out desc)
-            (println out)
             (recur (inc i))))))
     (with-open [in (DataInputStream. (BufferedInputStream. (FileInputStream. data-file)))]
       (try (while true
@@ -161,18 +155,44 @@
                    desc (.readUTF in)]
                (printf "You ordered %d units of %s at $%.2f%n" unit desc price)
                (swap! total + (* unit price))))
-           (catch EOFException _ (printf "For a TOTAL of: $%.2f%n" total)))
+           (catch EOFException _ (printf "For a TOTAL of: $%.2f%n" @total)))
       )))
 
-(data-streams)
 
+(defn object-streams [] ;;TODO : de rescris codul ?!
+  (let [data-file "invoice-data"
+        prices [19.99 9.99 15.99 3.99 4.99]
+        units [12 8 13 29 50]
+        descs ["Java T-shirt",
+               "Java Mug",
+               "Duke Juggling Dolls",
+               "Java Pin",
+               "Java Key Chain"]
+        total (atom 0)
+        now (Calendar/getInstance)]
+    (with-open [out (ObjectOutputStream. (BufferedOutputStream. (FileOutputStream. data-file)))]
+      (.writeObject out now)
+      (loop [i 0]
+        (when (< i (count prices))
+          (let [price (nth prices i)
+                unit (nth units i)
+                desc (nth descs i)]
+            (.writeObject out price)
+            (.writeInt out unit)
+            (.writeUTF out desc)
+            (recur (inc i))))))
+    (with-open [in (ObjectInputStream. (BufferedInputStream. (FileInputStream. data-file)))]
+      (let [date (cast Calendar (.readObject in))]
+        (printf "On %tA, %tB %<te, %<tY:%n" date nil)
+        (try (while true
+               (let [price (cast BigDecimal (.readObject in))
+                     unit (.readInt in)
+                     desc (.readUTF in)]
+                 (printf "You ordered %d units of %s at $%.2f%n" unit desc price)
+                 (swap! total + (* unit price))))
+             (catch EOFException _ (printf "For a TOTAL of: $%.2f%n" @total)))))))
 
-
-
-(loop [x 10]
-  (when (> x 1)
-    (println x)
-    (recur (- x 2))))
+(object-streams)
 
 
 (comment
@@ -203,6 +223,8 @@
             (do (println num)
                 (recur (inc x)))
             (recur (inc x)))))))
-
+  
+(printf "On %tA, %tb %<te, %<tY:%n" (cast Calendar (.readObject in)))
+  
   0
   )
