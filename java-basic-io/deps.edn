@@ -1,1 +1,2 @@
-{:paths ["src"]}
+{:paths ["src"]
+ :deps {clojure-interop/java.nio {:mvn/version "1.0.5"}}}
