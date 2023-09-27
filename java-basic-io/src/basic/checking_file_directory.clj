@@ -1,6 +1,9 @@
 (ns basic.checking-file-directory
   (:import java.nio.file.Paths
-           java.nio.file.Files))
+           java.nio.file.Files
+           java.nio.file.NoSuchFileException
+           java.nio.file.DirectoryNotEmptyException
+           java.io.IOException))
 
 (defn checking-file-accessibility [p]
   (let [string-more (into-array String [])
@@ -20,4 +23,14 @@
       (println "The two paths indicate same file")
       (println "Different paths"))))
 
-(two-paths-locate-same-file? "symbolic-folder/link-to-test.txt" "test.txt")
+;; (two-paths-locate-same-file? "symbolic-folder/link-to-test.txt" "test.txt")
+
+(defn deleting-file-or-dir [p]
+  (try (let [string-more (into-array String [])
+             path (Paths/get p string-more)]
+         (Files/delete path))
+       (catch NoSuchFileException _ (printf "%s: no such file or directory%n" p))
+       (catch DirectoryNotEmptyException _ (printf "%s: not emptyyy%n" p))
+       (catch IOException e (.println System/err e))))
+
+(deleting-file-or-dir "not-empty-folde")
