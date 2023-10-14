@@ -1,0 +1,2 @@
+symbolic link test
+test2
