@@ -21,3 +21,7 @@ modules/
 java-basic-io/.calva/
 java-basic-io/.clj-kondo/
 java-basic-io/.lsp/
+
+java-concurrency/.calva/
+java-concurrency/.clj-kondo/
+java-concurrency/.lsp/
