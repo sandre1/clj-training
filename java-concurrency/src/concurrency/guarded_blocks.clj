@@ -4,20 +4,23 @@
 
 (def joy (atom false))
 
+(def o (Object.))
+
 (defn guarded-joy []
-  (locking joy
-    (println "started guarded boy")
+  (locking o
+    (println "started guarded joy")
     (while (false? @joy)
-      (try (.wait (Object.))
-           (catch InterruptedException e)))
-    (println "Joy and efficiency have been achieved!")))
+      (try (.wait o)
+           (catch InterruptedException e))
+      (println "Joy and efficiency have been achieved!"))))
 
 
 
 (defn notify-joy []
-  (reset! joy true)
-  (.notifyAll (Object.))
-  (println "i have notified all"))
+  (locking o
+   (reset! joy true)
+   (.notifyAll o)
+    (println "i have notified all")))
 
 (defn -main [& args]
   (future (guarded-joy))
