@@ -29,8 +29,6 @@
     (catch InterruptedException e
       (println "Thread interupted:" (.getMessage e)))))
 
-;; TODO fix this fn
-
 (comment
   (-main)
   (heavy-crunch "abc")
