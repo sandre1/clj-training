@@ -10,7 +10,7 @@
 
 (defn take-fn []
   (locking a
-    (while (and @empty-a (not= @message-global "DONE!"))
+    (while @empty-a
       (try
         (.wait a)
         (catch InterruptedException e (.getMessage e))))
@@ -20,13 +20,14 @@
 
 
 (defn put [message]
-  (locking a 
-    (while (false? @empty-a)
+  (locking a
+    (println "put message: " message)
+    (while (= false @empty-a)
       (try (.wait a)
            (catch InterruptedException e (.getMessage e))))
-           (swap! empty-a (constantly false))
-           (swap! message-global str message)
-           (.notifyAll a)))
+    (swap! empty-a (constantly false))
+    (swap! message-global str message)
+    (.notifyAll a)))
 
 (defn producer []
   (reify Runnable
@@ -35,9 +36,9 @@
                             "Does eat oats",
                             "Little lambs eat ivy",
                             "A kid will eat ivy too"]]
-        (println "sending messages:")
+        (println "sending messages loop:")
         (loop [m important-info]
-          (println "Put message: " m)
+          (println "message to put: " (first m))
           (println "global-message: " @message-global)
           (put (first m))
           (try (Thread/sleep (long (rand-int 5000)))
@@ -75,12 +76,15 @@
     (swap! a not))
   
   (let [message (atom "")]
-    (swap! message str "as")
-    @message)
+    (empty? @message))
+  (when true 
+    (println "false"))
   
 (let [a {:message ""}]
   (assoc a :message "asda"))
   (when (= "Done" "Done")
     (println "da"))
   (long (rand-int 5000))
+  (not true)
+  
   0)
