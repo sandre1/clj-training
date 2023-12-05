@@ -7,8 +7,13 @@
   (proxy [Runnable] []
     (run [] (println "Hello from a Thread!"))))
 
+(defn create-runnable-2 []
+  (reify Runnable 
+    (run [_]
+      (println "hello from a thread, using reify"))))
+
 (comment
-  (let [runnable (create-runnable)
+  (let [runnable (create-runnable-2)
         thread (Thread. runnable)]
     (.start thread))
   )
