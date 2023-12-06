@@ -7,6 +7,7 @@
 (def message-global (atom ""))
 
 (def a (Object.))
+(def b (Object.))
 
 (defn take-fn []
   (locking a
@@ -14,7 +15,7 @@
       (try
         (.wait a)
         (catch InterruptedException e (.getMessage e))))
-    (swap! empty-a (constantly true))
+    (reset! empty-a true)
     (.notifyAll a)
     @message-global))
 
@@ -25,7 +26,7 @@
     (while (= false @empty-a)
       (try (.wait a)
            (catch InterruptedException e (.getMessage e))))
-    (swap! empty-a (constantly false))
+    (reset! empty-a false)
     (swap! message-global str message)
     (.notifyAll a)))
 
@@ -52,8 +53,7 @@
       (let [m (take-fn)]
         (while (and
                 (= @message-global m)
-                (not= @message-global "DONE!")
-                (= @message-global m))
+                (not= @message-global "DONE!"))
           (printf "MESSAGE RECEIVED: %s%n" @message-global)
           (try (Thread/sleep (long (rand-int 5000)))
                (catch InterruptedException e (.getMessage e))))))))
