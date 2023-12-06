@@ -32,9 +32,9 @@
     (reset! empty-a false)
     (println "put: i have reset empty to FALSE")
     (reset! message-global message)
-    (println "put: i have reset message global to to:" message)
-    (.notifyAll a)
-    (println "put: i have notified all, released lock")))
+    (println "put: i have reset message global to:" message)
+    (println "put: notifying all, released lock")
+    (.notifyAll a)))
 
 (defn producer []
   (reify Runnable
@@ -55,12 +55,10 @@
   (reify Runnable
     (run [_]
          (loop [message (take-fn)]
-           (when (and
-                    (= @message-global message)
-                    (not= @message-global "DONE!"))
-               (printf "MESSAGE RECEIVED: %s%n" @message-global)
-               (try (Thread/sleep (* 1000 (rand-int 6)))
-                    (catch InterruptedException e (.getMessage e))))
+           (when (not= message "DONE!")
+             (printf "MESSAGE RECEIVED: %s%n" @message-global)
+             (try (Thread/sleep (* 1000 (rand-int 6)))
+                  (catch InterruptedException e (.getMessage e))))
            (recur (take-fn))))))
 
 (defn producer-consumer []
