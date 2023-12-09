@@ -9,24 +9,24 @@
 (def a (Object.))
 
 
-(defn take-fn []
-  (locking a
+(defn take-fn [lock]
+  (locking lock
     (while @empty-a
       (try
-        (.wait a)
+        (.wait lock)
         (println "take-fn is waiting...")
         (catch InterruptedException e (.getMessage e))))
     (reset! empty-a true)
     (println "take-fn: i have reset empty to TRUE")
-    (.notifyAll a)
+    (.notifyAll lock)
     (println "take-fn: i have notified all, releasing lock and returning message-global:" @message-global)
     @message-global))
 
 
-(defn put [message]
-  (locking a
+(defn put [message lock]
+  (locking lock
     (while (= false @empty-a)
-      (try  (.wait a)
+      (try  (.wait lock)
             (println "put is waiting...")
             (catch InterruptedException e (.getMessage e))))
     (reset! empty-a false)
@@ -34,36 +34,37 @@
     (reset! message-global message)
     (println "put: i have reset message global to:" message)
     (println "put: notifying all, released lock")
-    (.notifyAll a)))
+    (.notifyAll lock)))
 
-(defn producer []
+(defn producer [lock]
   (reify Runnable
     (run [_]
       (let [important-info ["Mares eat oats",
                             "Does eat oats",
                             "Little lambs eat ivy",
-                            "A kid will eat ivy too"]]
+                            "A kid will eat ivy too"
+                            "DONE!"]]
         (println "sending messages loop:")
         (doseq [m important-info]
           (println "message to put: " m)
-          (put m)
-          (try (Thread/sleep (* 1000 (rand-int 6)))
+          (put m lock)
+          (try (Thread/sleep (* 1000 (rand-int 3)))
                (catch InterruptedException e (.getMessage e))))
-        (put "DONE!")))))
+        (put "DONE!" lock)))))
 
-(defn consumer []
+(defn consumer [lock]
   (reify Runnable
     (run [_]
-         (loop [message (take-fn)]
+         (loop [message (take-fn lock)]
            (when (not= message "DONE!")
              (printf "MESSAGE RECEIVED: %s%n" @message-global)
-             (try (Thread/sleep (* 1000 (rand-int 6)))
-                  (catch InterruptedException e (.getMessage e))))
-           (recur (take-fn))))))
+             (try (Thread/sleep (* 1000 (rand-int 3)))
+                  (catch InterruptedException e (.getMessage e)))
+             (recur (take-fn lock)))))))
 
-(defn producer-consumer []
-  (let [t1 (Thread. (producer))
-        t2 (Thread. (consumer))]
+(defn producer-consumer [lock]
+  (let [t1 (Thread. (producer lock))
+        t2 (Thread. (consumer lock))]
     (println "Start")
     (.start t1)
     (.start t2)
@@ -73,7 +74,7 @@
 
 
 (comment 
-  (producer-consumer)
+  (producer-consumer a)
   (let [a (atom true)]
     (swap! a (constantly true))
     (swap! a not))
